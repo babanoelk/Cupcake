@@ -1,0 +1,43 @@
+@startuml
+'https://plantuml.com/class-diagram
+left to right direction
+
+class Account {
+name
+email
+password
+}
+
+class Customer_Order {
+id
+}
+
+class Orderline {
+id
+}
+
+class Topping {
+name
+price
+}
+
+class Bottom {
+name
+price
+}
+
+class Basket {
+orderlines
+sum
+}
+
+'X symbolises *
+Account "1" - "X" Customer_Order
+Account "1" - "1" Basket
+Customer_Order "1" - "X" Orderline
+Orderline "X" - "1" Topping
+Orderline "X" - "1" Bottom
+Basket "1" - "X" Orderline
+
+!pragma layout smetana
+@enduml

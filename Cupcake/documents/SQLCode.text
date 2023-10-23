@@ -1,0 +1,69 @@
+drop table if exists account cascade;
+
+create table account(
+	account_id serial not null primary key,
+	name text not null,
+	email text not null,
+	password text not null,
+	admin boolean not null,
+	balance integer not null
+);
+
+insert into account (name, email, password, admin, balance) values ('Youssef','badranyoussef@gmail.com','1234',true,500),
+('Hanni','hannisalman2510@outlook.com','1234',true,500),
+('Lasse','lasse.kh.92@gmail.com','1234',true,500),
+('Ahmad','babanoelk@icloud.com','1234',true,500),
+('Jon','jonbertelsen@gmail.com','1234',false,200);
+
+drop table if exists customer_order cascade;
+
+create table customer_order(
+	order_id serial not null primary key,
+	order_date date not null,
+	total_amount integer not null,
+	account_id integer not null,
+	constraint fk_account_id foreign key (account_id)
+	references account(account_id)
+
+);
+
+drop table if exists topping cascade;
+create table topping(
+	topping_id serial not null primary key,
+	name text not null,
+	price int not null
+);
+
+insert into topping (name, price) values ('Chocolate', 5),
+('Blueberry',5),
+('Rasberry', 5),
+('Crispy', 6),
+('Strawberry', 6),
+('Rum/Raisin',7),
+('Orange',8),
+('Lemon',8),
+('Blue Cheese',9);
+
+drop table if exists bottom cascade;
+create table bottom(
+	bottom_id serial not null primary key,
+	name text not null,
+	price int not null
+);
+
+insert into bottom (name,price) values ('Chocolate',5),
+('Vanilla' ,5),
+('Nutmeg' ,5),
+('Pistacio' ,6),
+('Almond' ,7);
+
+drop table if exists orderline cascade;
+create table orderline(
+	orderline_id serial not null primary key,
+	topping_id serial not null,
+	bottom_id serial not null,
+	order_id serial not null,
+	constraint fk_topping_id foreign key (topping_id) references topping (topping_id),
+	constraint fk_bottom_id foreign key (bottom_id) references bottom (bottom_id),
+	constraint fk_order_id foreign key (order_id) references customer_order (order_id)
+);
