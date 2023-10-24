@@ -6,6 +6,18 @@ public class Orderline {
     private Bottom bottom;
     private Topping topping;
 
+    public Orderline(int amount, Bottom bottom, Topping topping) {
+        this.amount = amount;
+        this.bottom = bottom;
+        this.topping = topping;
+    }
+    public Orderline(int id, int amount, Bottom bottom, Topping topping) {
+        this.id = id;
+        this.amount = amount;
+        this.bottom = bottom;
+        this.topping = topping;
+    }
+
     public int getId() {
         return id;
     }
