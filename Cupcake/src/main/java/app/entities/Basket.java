@@ -1,13 +1,15 @@
 package app.entities;
 
+import java.util.List;
+
 public class Basket {
-    private List<Oderline> orderlines;
+    private List<Orderline> orderlines;
 
     public void addOrderline(){
 
     }
 
-    public List<Oderline> getOrderlines() {
+    public List<Orderline> getOrderlines() {
         return orderlines;
     }
     public String toString(){
