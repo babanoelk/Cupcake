@@ -1,0 +1,130 @@
+@startuml
+'https://plantuml.com/class-diagram
+package app {
+
+class Main {
+}
+
+
+package entities {
+
+    class Account {
+        - int id
+        - String name
+        - String email
+        - String password
+        - boolean isAdmin
+        - int balance
+        - List<Order> orders
+
+        + Account(int id, String name, String email, String password, boolean isAdmin)
+        + Account(int id, String name, String email, String password, boolean isAdmin, int balance)
+        + int getId()
+        + String getName()
+        + String getEmail()
+        + String getPassword()
+        + boolean getIsAdmin()
+        + int getBalance()
+        + void addOrder()
+        + List<Order> getAllOrders()
+        + String toString()
+    }
+
+    Account *-- Main
+    Account *-- Order
+
+    class Order {
+        - int id
+        - date orderDate
+        - int orderSum
+        - List<Orderline> orderlines
+
+        + Order(int id, date orderDate, int orderSum, List<Orderline> orderlines)
+        + int getId()
+        + date getOrderDate()
+        + int getOrderSum()
+        + List<Orderline> getAllOrderlines
+    }
+
+    Order *-- Orderline
+
+    class Orderline {
+        - int id
+        - int amount
+        - Bottom bottom
+        - Topping topping
+
+        + int getId()
+        + int getAmount()
+        + Bottom getBottom()
+        + Topping getTopping()
+    }
+
+    Orderline *-- Topping
+
+    class Topping {
+        - int id
+        - String name
+        - int price
+
+        + Topping(int id, String name, int price)
+        + int getId()
+        + String getName()
+        + int getPrice()
+    }
+
+    Orderline *-- Bottom
+
+    class Bottom {
+        - int id
+        - String name
+        - int price
+
+        + Bottom(int id, String name, int price)
+        + int getId()
+        + String getName()
+        + int getPrice()
+    }
+
+    Main *-- Basket
+    Basket *-- Orderline
+
+    class Basket {
+        - List<Orderline> orderlines
+
+        + void addOrderline()
+        + List<Orderline> getOrderlines()
+        + String toString()
+    }
+}
+
+package controllers {
+    class AccountController {
+
+    }
+}
+
+package exceptions {
+    class DatabaseException extends Exception {
+        + DatabaseException(String message)
+    }
+}
+
+package persistence {
+    class ConnectionPool {
+        'insert fields and methods
+    }
+
+    class AccountMapper {
+
+    }
+}
+
+package config {
+    class ThymeleafConfig {
+        'insert fields and methods
+    }
+}
+}
+!pragma layout smetana
+@enduml
