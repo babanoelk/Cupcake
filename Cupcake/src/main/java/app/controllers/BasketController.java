@@ -10,8 +10,19 @@ import app.persistence.BottomMapper;
 import app.persistence.ConnectionPool;
 import app.persistence.ToppingMapper;
 import io.javalin.http.Context;
+import java.util.List;
 
 public class BasketController {
+    Basket basket = new Basket();
+  
+    public static void ShowAllOrderlines(Basket basket, Context ctx)
+    {
+        List <Orderline> orderlines = basket.getOrderlines();
+
+        ctx.sessionAttribute("orderlines", orderlines);
+        ctx.render("/Cart");
+    }
+
 
     //Metoden skal tilføje en ordrelinje til kurven
     public static void addOrderline(Context ctx, ConnectionPool connectionPool) throws DatabaseException {
