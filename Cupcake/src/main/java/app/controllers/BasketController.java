@@ -1,26 +1,23 @@
 package app.controllers;
 
-import app.entities.Basket;
-import app.entities.Orderline;
-import app.entities.Topping;
-import app.entities.Bottom;
+import app.entities.*;
 import app.exceptions.DatabaseException;
-import app.persistence.BasketMapper;
 import app.persistence.BottomMapper;
 import app.persistence.ConnectionPool;
+import app.persistence.OrderMapper;
 import app.persistence.ToppingMapper;
 import io.javalin.http.Context;
+
 import java.util.List;
 
 public class BasketController {
-    Basket basket = new Basket();
-  
-    public static void ShowAllOrderlines(Basket basket, Context ctx)
-    {
-        List <Orderline> orderlines = basket.getOrderlines();
+
+    public static void showAllOrderlines(Context ctx) {
+        Basket basket = ctx.sessionAttribute("currentBasket");
+        List<Orderline> orderlines = basket.getOrderlines();
 
         ctx.sessionAttribute("orderlines", orderlines);
-        ctx.render("/Cart");
+        ctx.render("cart.html");
     }
 
 
@@ -41,4 +38,15 @@ public class BasketController {
         ctx.render("index.html");
 
     }
+
+    public void executeOrder(Context ctx, ConnectionPool connectionPool) throws DatabaseException {
+        if (true) { //todo: Lav en metode her som tjekker om personen er logget ind eller ej
+            Account account = ctx.sessionAttribute("currentAccount");
+            Basket basket = ctx.sessionAttribute("currentBasket");
+            OrderMapper.addOrder(account, basket.getOrderlines(), connectionPool);
+        } else {
+            //todo: lav en metode som enten opretter en bruger eller logger ind
+        }
+    }
+
 }
