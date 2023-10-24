@@ -1,14 +1,15 @@
 package app.entities;
 
+import java.util.Date;
 import java.util.List;
 
 public class Order {
     private int id;
-    private date orderDate;
+    private Date orderDate;
     private int orderSum;
     private List<Orderline> orderlines;
 
-    public Order(int id, date orderDate, int orderSum, List<Orderline> orderlines) {
+    public Order(int id, Date orderDate, int orderSum, List<Orderline> orderlines) {
         this.id = id;
         this.orderDate = orderDate;
         this.orderSum = orderSum;
@@ -19,7 +20,7 @@ public class Order {
         return id;
     }
 
-    public date getOrderDate() {
+    public Date getOrderDate() {
         return orderDate;
     }
 
