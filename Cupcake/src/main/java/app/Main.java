@@ -1,8 +1,10 @@
 package app;
 
 import app.config.ThymeleafConfig;
+import app.entities.Basket;
 import app.persistence.ConnectionPool;
 import io.javalin.Javalin;
+import io.javalin.http.Context;
 import io.javalin.rendering.template.JavalinThymeleaf;
 
 public class Main {
