@@ -9,10 +9,47 @@
 </head>
 
 <body>
+<!--
+<header id="header">
+    <h1>OLSKER CUPCAKES</h1>
+    <h3> MUMS FILIBABA</h3>
+    <img src="../public/images/cupcakelogo.png"/>
+</header>
+-->
 
-<h1>Welcome to the Javalin / Thymeleaf demo</h1>
+<div id="navbar">
+    <ul class="main-menu">
+        <li class="button">Login</li>
+    </ul>
+    <ul class="main-menu">
+        <div id="basket">
+            <img src="../public/images/basket.png" width="40rem"/>
+            <p id="basketsize" th:text="${#lists.size(basket.orders)}">orderlines</p>
+        </div>
+    </ul>
+</div>
 
-<p>This is your first web application in this world</p>
+<div id="main-content">
+    <h1>Velkommen til OLSKERS CUPCAKES</h1>
+    <h2>Øens bedste cupcakes. Vælg og bestil her:</h2>
+
+    <form id="dropdowns" method="post">
+        <select name="bottom" id="bottom">
+            <option class="dropdownMandatory" value="" disabled selected>Vælg bund...</option>
+            <option th:each="b : ${bottom}" th:value="${b}" th:text="${b}">buttom</option>
+        </select>
+        <select name="top" id="top">
+            <option class="dropdownMandatory" value="" disabled selected>Vælg top...</option>
+            <option th:each="t : ${top}" th:value="${t}" th:text="${t}">top</option>
+        </select>
+        <select name="antal" id="antal">
+            <option class="dropdownMandatory" value="" disabled selected>Vælg antal...</option>
+            <option th:each="i : ${#numbers.sequence(0, 15)}" th:value="${i}" th:text="${i}">antal cupcakes</option>
+        </select>
+        <button type="submit" formaction="/index">Læg i kurv</button>
+    </form>
+
+</div>
 
 </body>
 </html>
