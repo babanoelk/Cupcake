@@ -1,0 +1,46 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+left to right direction
+
+:Customer: as c
+:Admin: as a
+
+package "Generelle bruger funktioner" {
+    usecase "Login" as UC1
+    usecase "CreateAccount" as UC2
+    usecase "See orders" as UC3
+}
+
+package "Kunde specifikke funktioner" {
+    usecase "Choose cupcakes and add to basket" as UC4
+    usecase "See all orderlines in basket \n and update amount or delete line" as UC5
+    usecase "Execute order if logged in" as UC6
+    usecase "See my orders" as UC7
+}
+
+package "Admin specifikke funktioner" {
+    usecase "See all customers orders" as UC8
+    usecase "See all customers" as UC9
+    usecase "Add to customer balance" as UC10
+}
+
+'Customer use-cases
+c --> UC1
+c --> UC2
+c --> UC3
+c --> UC4
+c --> UC5
+c --> UC6
+c --> UC7
+
+'Admin use-cases
+a --> UC1
+a --> UC2
+a --> UC3
+a --> UC8
+a --> UC9
+a --> UC10
+
+
+!pragma layout smetana
+@enduml
