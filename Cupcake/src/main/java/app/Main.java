@@ -3,6 +3,7 @@ package app;
 import app.config.ThymeleafConfig;
 import app.controllers.BasketController;
 import app.controllers.CakeController;
+import app.controllers.AccountController;
 import app.persistence.ConnectionPool;
 import io.javalin.Javalin;
 import io.javalin.rendering.template.JavalinThymeleaf;
@@ -15,8 +16,7 @@ public class Main {
 
     private static final ConnectionPool connectionPool = ConnectionPool.getInstance(USER, PASSWORD, URL, DB);
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         // Initializing Javalin and Jetty webserver
         Javalin app = Javalin.create(config -> {
             config.staticFiles.add("/public");
@@ -27,5 +27,14 @@ public class Main {
         // Routing
         app.get("/", ctx ->  CakeController.loadFrontPageData(ctx, connectionPool));
         app.post("/addcupcake", ctx -> BasketController.addOrderline(ctx, connectionPool));
+
+        app.get("/", ctx ->  CakeController.startBasketSession(ctx, connectionPool));
+        //app.post("/addcupcake", ctx -> CakeController.addToCart(ctx, connectionPool));
+        //app.get("/", ctx -> ctx.render("index.html"));
+
+
+        app.get("/login", ctx -> ctx.render("loginpage.html"));
+        app.post("/loggedin", ctx -> AccountController.login(ctx, connectionPool));
+        //app.post("/login", ctx -> AccountController.login(ctx, connectionPool));
     }
 }

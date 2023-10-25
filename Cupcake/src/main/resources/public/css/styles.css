@@ -1,13 +1,54 @@
 /* Stylesheet for the application */
 
-/* text styles */
-
-
-#header {
-    background-color: blueviolet;
-    margin-bottom: 10px;
-    border-radius: 3px;
+/* Font: Inter */
+:root { font-family: 'Inter', sans-serif; }
+@supports (font-variation-settings: normal) {
+    :root { font-family: 'Inter var', sans-serif; }
 }
+
+h1 {
+    color: #369;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 3rem;
+    margin: auto;
+}
+
+header {
+    width: 100%;
+    padding-top: 25px;
+    background-color: #D9D9D9;
+}
+
+#header-title, #header-slogan, #header-logo {
+    width: 90%;
+    margin: auto;
+    margin-bottom: 10px;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: 'Inter', sans-serif;
+    font-weight: 200;
+    font-size: 32px;
+}
+
+#header-slogan {
+    font-weight: 600;
+    font-size: 22px;
+}
+
+#header-image {
+    max-width: 100%;
+}
+
+hr {
+    border: 1px black solid;
+}
+
+footer {
+    background-color: #D9D9D9;
+    padding: 10px;
+    text-align: center;
+}
+/* text styles */
 
 
 #main-container{
