@@ -27,14 +27,7 @@ public class Main {
         // Routing
         app.get("/", ctx ->  CakeController.loadFrontPageData(ctx, connectionPool));
         app.post("/addcupcake", ctx -> BasketController.addOrderline(ctx, connectionPool));
-
-        app.get("/", ctx ->  CakeController.startBasketSession(ctx, connectionPool));
-        //app.post("/addcupcake", ctx -> CakeController.addToCart(ctx, connectionPool));
-        //app.get("/", ctx -> ctx.render("index.html"));
-
-
         app.get("/login", ctx -> ctx.render("loginpage.html"));
         app.post("/loggedin", ctx -> AccountController.login(ctx, connectionPool));
-        //app.post("/login", ctx -> AccountController.login(ctx, connectionPool));
     }
 }
