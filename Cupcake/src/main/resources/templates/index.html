@@ -9,14 +9,11 @@
 </head>
 
 <body>
-<!--
-<header id="header">
-    <h1>OLSKER CUPCAKES</h1>
-    <h3> MUMS FILIBABA</h3>
-    <img src="../public/images/cupcakelogo.png"/>
-</header>
--->
+<header th:replace="~{fragments :: header}"></header>
 
+    <h1>Welcome to the Javalin / Thymeleaf demo</h1>
+
+    <p>This is your first web application in this world</p>
 <div id="main-container">
     <div id="navbar">
         <ul class="main-menu">
@@ -63,5 +60,6 @@
 
     </div>
 </div>
+<footer th:replace="~{fragments :: footer}"></footer>
 </body>
 </html>
