@@ -4,7 +4,7 @@ public class Order {
     private int id;
     private date orderDate;
     private int orderSum;
-    private List<Oderline> orderlines;
+    private List<Orderline> orderlines;
 
     public Order(int id, date orderDate, int orderSum, List<Oderline> orderlines) {
         this.id = id;
@@ -25,7 +25,7 @@ public class Order {
         return orderSum;
     }
 
-    public List<Oderline> getOrderlines() {
+    public List<Orderline> getOrderlines() {
         return orderlines;
     }
 }
