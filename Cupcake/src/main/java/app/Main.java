@@ -1,6 +1,7 @@
 package app;
 
 import app.config.ThymeleafConfig;
+import app.controllers.BasketController;
 import app.controllers.CakeController;
 import app.controllers.AccountController;
 import app.persistence.ConnectionPool;
@@ -24,6 +25,9 @@ public class Main {
 
 
         // Routing
+        app.get("/", ctx ->  CakeController.loadFrontPageData(ctx, connectionPool));
+        app.post("/addcupcake", ctx -> BasketController.addOrderline(ctx, connectionPool));
+
         app.get("/", ctx ->  CakeController.startBasketSession(ctx, connectionPool));
         //app.post("/addcupcake", ctx -> CakeController.addToCart(ctx, connectionPool));
         //app.get("/", ctx -> ctx.render("index.html"));

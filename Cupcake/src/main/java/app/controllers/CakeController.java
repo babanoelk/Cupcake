@@ -2,6 +2,7 @@ package app.controllers;
 
 import app.entities.Basket;
 import app.entities.Bottom;
+import app.entities.Orderline;
 import app.entities.Topping;
 import app.exceptions.DatabaseException;
 import app.persistence.BottomMapper;
@@ -13,7 +14,8 @@ import java.util.List;
 
 public class CakeController {
 
-    public static void startBasketSession(Context ctx, ConnectionPool connectionPool) {
+
+    public static void loadFrontPageData(Context ctx, ConnectionPool connectionPool) {
 
         try {
             Basket basket = new Basket();
@@ -35,4 +37,5 @@ public class CakeController {
             ctx.render("index.html");
         }
     }
+
 }

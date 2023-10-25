@@ -38,6 +38,7 @@
                 <option
                         th:each="bottom : ${bottomsList}"
                         th:value="${bottom.id}"
+                        th:name="${bottom_id}"
                         th:text="${bottom.name}">
                         bottom
                 </option>
@@ -47,13 +48,19 @@
                     <option
                             th:each="topping : ${toppingsList}"
                             th:value="${topping.id}"
+                            th:name="${topping_id}"
                             th:text="${topping.name}">
                             topping
                     </option>
             </select>
             <select name="antal" id="antal">
                 <option value="" disabled selected>Vælg antal...</option>
-                <option th:each="i : ${#numbers.sequence(1, 10)}" th:value="${i}" th:text="${i}">antal cupcakes</option>
+                <option th:each="i : ${#numbers.sequence(1, 10)}"
+                        th:value="${i}"
+                        th:text="${i}"
+                        th:name="${amount}">
+                        antal cupcakes
+                </option>
             </select>
             <button type="submit" formaction="/addcupcake">Læg i kurv</button>
         </form>
