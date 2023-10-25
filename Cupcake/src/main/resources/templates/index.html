@@ -2,10 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<title>Frontpage</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="../public/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
+    <title>Frontpage</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../public/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
 </head>
 
 <body>
@@ -17,39 +17,51 @@
 </header>
 -->
 
-<div id="navbar">
-    <ul class="main-menu">
-        <li class="button">Login</li>
-    </ul>
-    <ul class="main-menu">
-        <div id="basket">
-            <img src="../public/images/basket.png" width="40rem"/>
-            <p id="basketsize" th:text="${#lists.size(basket.orders)}">orderlines</p>
-        </div>
-    </ul>
+<div id="main-container">
+    <div id="navbar">
+        <ul class="main-menu">
+            <li class="button"><a href="/login">Login</a></li>
+        </ul>
+        <ul class="main-menu">
+            <div id="basket">
+                <a href="/cart"><img src="../public/images/basket.png" th:src="@{/images/basket.png}" width="40rem"/></a>
+                <div th:if="${orderlines != null}">
+                    <p th:text="${#lists.size(orderlines)}"></p>
+            </div>
+        </ul>
+    </div>
+
+    <div id="main-content">
+        <h1>Velkommen til OLSKERS CUPCAKES</h1>
+        <h2>Øens bedste cupcakes. Vælg og bestil her:</h2>
+
+        <form id="dropdowns" method="post">
+            <select name="bottom" id="bottom">
+                <option value="" disabled selected>Vælg bund...</option>
+                <option
+                        th:each="bottom : ${bottomsList}"
+                        th:value="${bottom.id}"
+                        th:text="${bottom.name}">
+                        bottom
+                </option>
+            </select>
+            <select name="top" id="top">
+                <option value="" disabled selected>Vælg top...</option>
+                    <option
+                            th:each="topping : ${toppingsList}"
+                            th:value="${topping.id}"
+                            th:text="${topping.name}">
+                            topping
+                    </option>
+            </select>
+            <select name="antal" id="antal">
+                <option value="" disabled selected>Vælg antal...</option>
+                <option th:each="i : ${#numbers.sequence(1, 10)}" th:value="${i}" th:text="${i}">antal cupcakes</option>
+            </select>
+            <button type="submit" formaction="/addcupcake">Læg i kurv</button>
+        </form>
+
+    </div>
 </div>
-
-<div id="main-content">
-    <h1>Velkommen til OLSKERS CUPCAKES</h1>
-    <h2>Øens bedste cupcakes. Vælg og bestil her:</h2>
-
-    <form id="dropdowns" method="post">
-        <select name="bottom" id="bottom">
-            <option class="dropdownMandatory" value="" disabled selected>Vælg bund...</option>
-            <option th:each="b : ${bottom}" th:value="${b}" th:text="${b}">buttom</option>
-        </select>
-        <select name="top" id="top">
-            <option class="dropdownMandatory" value="" disabled selected>Vælg top...</option>
-            <option th:each="t : ${top}" th:value="${t}" th:text="${t}">top</option>
-        </select>
-        <select name="antal" id="antal">
-            <option class="dropdownMandatory" value="" disabled selected>Vælg antal...</option>
-            <option th:each="i : ${#numbers.sequence(0, 15)}" th:value="${i}" th:text="${i}">antal cupcakes</option>
-        </select>
-        <button type="submit" formaction="/index">Læg i kurv</button>
-    </form>
-
-</div>
-
 </body>
 </html>

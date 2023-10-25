@@ -23,7 +23,7 @@ public class ToppingMapper {
 
                 while (rs.next())
                 {
-                    int id = rs.getInt("id");
+                    int id = rs.getInt("topping_id");
                     String name = rs.getString("name");
                     int price = rs.getInt("price");
                     toppings.add(new Topping(id, name, price));

@@ -14,7 +14,7 @@ import java.util.List;
 
 public class BasketController {
     Basket basket = new Basket();
-  
+
     public static void ShowAllOrderlines(Basket basket, Context ctx)
     {
         List <Orderline> orderlines = basket.getOrderlines();

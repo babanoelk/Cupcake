@@ -9,5 +9,8 @@
         <module name="cupcake" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Cupcake" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>
