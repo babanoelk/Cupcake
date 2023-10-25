@@ -125,6 +125,7 @@ package config {
         'insert fields and methods
     }
 }
+
 }
 !pragma layout smetana
 @enduml
