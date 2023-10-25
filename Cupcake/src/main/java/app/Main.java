@@ -25,6 +25,6 @@ public class Main {
 
         // Routing
         app.get("/", ctx ->  CakeController.startBasketSession(ctx, connectionPool));
-        app.post("/addcupcake", ctx -> CakeController.addToCart(ctx, connectionPool));
+        //app.post("/addcupcake", ctx -> CakeController.addToCart(ctx, connectionPool));
     }
 }
