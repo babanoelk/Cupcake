@@ -2,7 +2,6 @@ package app.controllers;
 
 import app.entities.Basket;
 import app.entities.Bottom;
-import app.entities.Orderline;
 import app.entities.Topping;
 import app.exceptions.DatabaseException;
 import app.persistence.BottomMapper;
@@ -14,11 +13,15 @@ import java.util.List;
 
 public class CakeController {
 
-    public static void addCake(Context ctx, ConnectionPool connectionPool) {
+    public static void startBasketSession(Context ctx, ConnectionPool connectionPool) {
 
         try {
             Basket basket = new Basket();
+
             ctx.sessionAttribute("currentBasket", basket);
+            ctx.attribute("orderlines",basket.getOrderlines());
+
+
             List<Topping> toppings = ToppingMapper.getAllToppings(connectionPool);
             List<Bottom> bottoms = BottomMapper.getAllBottoms(connectionPool);
 

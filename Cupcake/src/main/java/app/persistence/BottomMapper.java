@@ -21,7 +21,7 @@ public class BottomMapper {
                 ResultSet rs = ps.executeQuery();
 
                 while (rs.next()) {
-                    int id = rs.getInt("id");
+                    int id = rs.getInt("bottom_id");
                     String name = rs.getString("name");
                     int price = rs.getInt("price");
                     bottoms.add(new Bottom(id, name, price));

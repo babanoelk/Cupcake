@@ -1,10 +1,9 @@
 package app;
 
 import app.config.ThymeleafConfig;
-import app.entities.Basket;
+import app.controllers.CakeController;
 import app.persistence.ConnectionPool;
 import io.javalin.Javalin;
-import io.javalin.http.Context;
 import io.javalin.rendering.template.JavalinThymeleaf;
 
 public class Main {
@@ -23,7 +22,9 @@ public class Main {
             JavalinThymeleaf.init(ThymeleafConfig.templateEngine());
         }).start(7070);
 
+
         // Routing
-        app.get("/", ctx ->  ctx.render("index.html"));
+        app.get("/", ctx ->  CakeController.startBasketSession(ctx, connectionPool));
+        //app.post("/addcupcake", ctx -> CakeController.addToCart(ctx, connectionPool));
     }
 }
