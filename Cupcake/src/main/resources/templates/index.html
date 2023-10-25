@@ -9,10 +9,56 @@
 </head>
 
 <body>
+<header th:replace="~{fragments :: header}"></header>
 
     <h1>Welcome to the Javalin / Thymeleaf demo</h1>
 
     <p>This is your first web application in this world</p>
+<div id="main-container">
+    <div id="navbar">
+        <ul class="main-menu">
+            <li class="button"><a href="/login">Login</a></li>
+        </ul>
+        <ul class="main-menu">
+            <div id="basket">
+                <a href="/cart"><img src="../public/images/basket.png" th:src="@{/images/basket.png}" width="40rem"/></a>
+                <div th:if="${orderlines != null}">
+                    <p th:text="${#lists.size(orderlines)}"></p>
+            </div>
+        </ul>
+    </div>
 
+    <div id="main-content">
+        <h1>Velkommen til OLSKERS CUPCAKES</h1>
+        <h2>Øens bedste cupcakes. Vælg og bestil her:</h2>
+
+        <form id="dropdowns" method="post">
+            <select name="bottom" id="bottom">
+                <option value="" disabled selected>Vælg bund...</option>
+                <option
+                        th:each="bottom : ${bottomsList}"
+                        th:value="${bottom.id}"
+                        th:text="${bottom.name}">
+                        bottom
+                </option>
+            </select>
+            <select name="top" id="top">
+                <option value="" disabled selected>Vælg top...</option>
+                    <option
+                            th:each="topping : ${toppingsList}"
+                            th:value="${topping.id}"
+                            th:text="${topping.name}">
+                            topping
+                    </option>
+            </select>
+            <select name="antal" id="antal">
+                <option value="" disabled selected>Vælg antal...</option>
+                <option th:each="i : ${#numbers.sequence(1, 10)}" th:value="${i}" th:text="${i}">antal cupcakes</option>
+            </select>
+            <button type="submit" formaction="/addcupcake">Læg i kurv</button>
+        </form>
+
+    </div>
+</div>
 </body>
 </html>

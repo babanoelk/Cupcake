@@ -6,8 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Cupcake" />
+        <module name="cupcake" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Cupcake" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>

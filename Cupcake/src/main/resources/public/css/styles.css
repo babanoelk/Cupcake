@@ -48,3 +48,91 @@ footer {
     padding: 10px;
     text-align: center;
 }
+/* text styles */
+
+
+#main-container{
+    margin: auto;
+    max-width: 1200px;
+
+}
+
+/* Nav bar */
+
+#navbar {
+    background-color: #dfdfdf;
+    margin-top: 10px;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 3px;
+}
+
+/* main menu */
+
+.main-menu {
+    list-style: none;
+    display: flex;
+    padding: 0px;
+    margin: 0px;
+    gap: 1px;
+    border-radius: 3px;
+}
+
+#main-content {
+    display: flex;
+    flex-direction: column;
+    min-height: 300px;
+    margin-top: 10px;
+    padding: 20px;
+    background-color: #dfdfdf;
+    text-align: center;
+    border-radius: 3px;
+}
+
+/* flex styling af dropdowns */
+
+#dropdowns {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+#dropdowns select, #dropdowns button {
+    font-size: 1.5rem;
+    padding: 5px;
+    flex-grow: 1;
+}
+
+.button {
+    background-color: yellow;
+    padding: 1rem;
+    border-radius: 3px;
+}
+
+#basket{
+    display: flex;
+}
+
+#basketsize{
+    background: black;
+    color: white;
+    border-radius: 50px;
+}
+
+@media screen and (max-width: 600px) {
+
+    #dropdowns {
+        flex-direction: column;
+    }
+
+    #nav {
+        flex-direction: column;
+        gap: 1px;
+    }
+
+    .main-menu {
+        flex-direction: column;
+    }
+
+}
