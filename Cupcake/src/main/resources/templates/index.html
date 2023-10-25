@@ -59,7 +59,7 @@
             <select name="antal" id="antal">
                 <option value="" disabled selected>Vælg antal...</option>
                 <option th:each="i : ${#numbers.sequence(1, 10)}"
-                        th:value="${amount}"
+                        th:value="${i}"
                         th:text="${i}"
                         th:name="${amount}">
                         antal cupcakes
