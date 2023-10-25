@@ -13,7 +13,7 @@ import java.util.List;
 
 public class CakeController {
 
-    public static void startBasketSession(Context ctx, ConnectionPool connectionPool) {
+    public static void loadFrontPageData(Context ctx, ConnectionPool connectionPool) {
 
         try {
             Basket basket = new Basket();

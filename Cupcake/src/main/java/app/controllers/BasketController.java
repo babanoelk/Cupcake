@@ -31,9 +31,10 @@ public class BasketController {
     //Metoden skal tilføje en ordrelinje til kurven
     public static void addOrderline(Context ctx, ConnectionPool connectionPool) throws DatabaseException {
 
-        int toppingId = Integer.parseInt(ctx.formParam("topping"));
-        int bottomId = Integer.parseInt(ctx.formParam("bottom"));
+        int toppingId = Integer.parseInt(ctx.formParam("topping_id"));
+        int bottomId = Integer.parseInt(ctx.formParam("bottom_id"));
         int amount = Integer.parseInt(ctx.formParam("amount"));
+
 
         Topping topping = ToppingMapper.getToppingById(toppingId, connectionPool);
         Bottom bottom = BottomMapper.getBottomById(bottomId, connectionPool);
@@ -42,6 +43,8 @@ public class BasketController {
 
         Basket basket = ctx.sessionAttribute("currentBasket");
         basket.addOrderline(orderline);
+
+        ctx.attribute("orderlines",basket.getOrderlines());
         ctx.render("index.html");
 
     }
