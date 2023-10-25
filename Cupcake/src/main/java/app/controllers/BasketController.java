@@ -8,6 +8,7 @@ import app.persistence.OrderMapper;
 import app.persistence.ToppingMapper;
 import io.javalin.http.Context;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class BasketController {
@@ -39,11 +40,12 @@ public class BasketController {
 
     }
 
-    public void executeOrder(Context ctx, ConnectionPool connectionPool) throws DatabaseException {
+    public void executeOrder(Context ctx, ConnectionPool connectionPool) throws DatabaseException, SQLException {
         if (true) { //todo: Lav en metode her som tjekker om personen er logget ind eller ej
             Account account = ctx.sessionAttribute("currentAccount");
             Basket basket = ctx.sessionAttribute("currentBasket");
-            OrderMapper.addOrder(account, basket.getOrderlines(), connectionPool);
+            Order order = OrderMapper.addOrder(account, basket.getOrderlines(), connectionPool);
+            OrderMapper.addOrderline(order, basket.getOrderlines(), connectionPool);
         } else {
             //todo: lav en metode som enten opretter en bruger eller logger ind
         }
