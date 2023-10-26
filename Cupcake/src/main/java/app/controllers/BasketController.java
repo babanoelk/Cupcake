@@ -48,6 +48,10 @@ public class BasketController {
 
     }
 
+    public static void deleteOrderline(Context ctx) {
+    }
+
+
     public void executeOrder(Context ctx, ConnectionPool connectionPool) throws DatabaseException, SQLException {
         if (isAccountLoggedIn(ctx)) {
             Account account = ctx.sessionAttribute("currentAccount");
