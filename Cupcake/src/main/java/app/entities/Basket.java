@@ -31,6 +31,7 @@ public class Basket {
             totalPrice += orderline.getPricePrOrderLine();
         }
 
+
         return totalPrice;
     }
 
