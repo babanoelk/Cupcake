@@ -2,6 +2,7 @@ package app.entities;
 
 public class Orderline {
     private int id;
+    private static int counter;
     private int amount;
     private Bottom bottom;
     private Topping topping;
@@ -22,10 +23,15 @@ public class Orderline {
         return id;
     }
 
+
+
     @Override
     public String toString() {
         return "Topping: "+topping.getName() + " Bottom: " + bottom.getName();
     }
+
+
+
 
     public int getAmount() {
         return amount;

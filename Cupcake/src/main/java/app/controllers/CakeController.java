@@ -21,8 +21,8 @@ public class CakeController {
             Basket basket = new Basket();
 
             ctx.sessionAttribute("currentBasket", basket);
-            ctx.attribute("orderlines",basket.getOrderlines());
 
+            ctx.attribute("orderlines",basket.getOrderlines());
 
             List<Topping> toppings = ToppingMapper.getAllToppings(connectionPool);
             List<Bottom> bottoms = BottomMapper.getAllBottoms(connectionPool);

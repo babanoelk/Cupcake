@@ -13,10 +13,20 @@ import java.util.List;
 
 public class BasketController {
 
-    Basket basket = new Basket();
-
     public static void showAllOrderlines(Context ctx) {
         Basket basket = ctx.sessionAttribute("currentBasket");
+        ctx.attribute("orderlines",basket.getOrderlines());
+        ctx.render("cart.html");
+    }
+
+
+    public static void deleteOrderline(Context ctx) {
+        Basket basket = ctx.sessionAttribute("currentBasket");
+
+        int basketIndex = Integer.parseInt(ctx.formParam("order_id"));
+
+        basket.getOrderlines().remove(basketIndex);
+        ctx.sessionAttribute("currentBasket", basket);
         ctx.attribute("orderlines",basket.getOrderlines());
         ctx.render("cart.html");
     }
@@ -44,14 +54,35 @@ public class BasketController {
         ctx.attribute("bottomsList", bottoms);
 
         ctx.attribute("orderlines",basket.getOrderlines());
+
+        //Always remember to save session after manipulation
+        ctx.sessionAttribute("currentBasket", basket);
         ctx.render("index.html");
     }
 
-    public static void deleteOrderline(Context ctx) {
+    public static void addMoreCupcakes(Context ctx, ConnectionPool connectionPool) {
+
+        try {
+            Basket basket = ctx.sessionAttribute("currentBasket");
+
+            ctx.attribute("orderlines",basket.getOrderlines());
+
+            List<Topping> toppings = ToppingMapper.getAllToppings(connectionPool);
+            List<Bottom> bottoms = BottomMapper.getAllBottoms(connectionPool);
+
+            ctx.attribute("toppingsList", toppings);
+            ctx.attribute("bottomsList", bottoms);
+
+            ctx.render("index.html");
+
+        } catch (DatabaseException e) {
+            ctx.attribute("message", e.getMessage());
+            ctx.render("index.html");
+        }
+
     }
 
-
-    public void executeOrder(Context ctx, ConnectionPool connectionPool) throws DatabaseException, SQLException {
+    public static void executeOrder(Context ctx, ConnectionPool connectionPool) throws DatabaseException, SQLException {
         if (isAccountLoggedIn(ctx)) {
             Account account = ctx.sessionAttribute("currentAccount");
             Basket basket = ctx.sessionAttribute("currentBasket");
@@ -61,14 +92,14 @@ public class BasketController {
             Order order = OrderMapper.addOrder(account, basket.getOrderlines(), connectionPool);
             OrderMapper.addOrderline(order, basket.getOrderlines(), connectionPool);
         } else {
-            AccountController.login(ctx, connectionPool);
+            ctx.render("loginpage.html");
         }
     }
-    public boolean isAccountLoggedIn(Context ctx){
+    public static boolean isAccountLoggedIn(Context ctx){
         Account account = ctx.sessionAttribute("currentAccount");
         return account != null;
     }
-    public void withdrawPayment(Context ctx, Account account, int amountTowithdraw){
+    public static void withdrawPayment(Context ctx, Account account, int amountTowithdraw){
         int currentBalance = account.getBalance();
         if (currentBalance >= amountTowithdraw){
             int newBalance = currentBalance - amountTowithdraw;

@@ -21,11 +21,8 @@
         </ul>
         <ul class="main-menu">
             <div id="basket">
-                <a href="/cart"><img src="../public/images/basket.png" th:src="@{/images/basket.png}"
-                                     width="40rem"/></a>
-                <div th:if="${orderlines != null}">
-                    <p th:text="${#lists.size(orderlines)}"></p>
-                </div>
+                <a href="/cart"><img src="../public/images/basket.png" th:src="@{/images/basket.png}" width="40rem"/></a>
+                <p th:text="${#ctx.session.currentBasket.getTotalAmountOfCupcakes}"></p>
             </div>
         </ul>
     </div>
@@ -35,7 +32,7 @@
         <h2>Øens bedste cupcakes. Vælg og bestil her:</h2>
 
         <form id="dropdowns" method="post">
-            <select name="bottom" id="bottom">
+            <select name="bottom" id="bottom" th:required="true">
                 <option value="" disabled selected>Vælg bund...</option>
                 <option
                         th:each="bottom : ${bottomsList}"
@@ -45,7 +42,7 @@
                     bottom
                 </option>
             </select>
-            <select name="top" id="top">
+            <select name="top" id="top" th:required="true">
                 <option value="" disabled selected>Vælg top...</option>
                 <option
                         th:each="topping : ${toppingsList}"
@@ -55,7 +52,7 @@
                     topping
                 </option>
             </select>
-            <select name="antal" id="antal">
+            <select name="antal" id="antal" th:required="true">
                 <option value="" disabled selected>Vælg antal...</option>
                 <option th:each="i : ${#numbers.sequence(1, 10)}"
                         th:value="${i}"
