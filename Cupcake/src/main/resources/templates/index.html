@@ -22,7 +22,7 @@
         <ul class="main-menu">
             <div id="basket">
                 <a href="/cart"><img src="../public/images/basket.png" th:src="@{/images/basket.png}" width="40rem"/></a>
-                <p th:text="${#lists.size(orderlines)}"></p>
+                <p th:text="${#ctx.session.currentBasket.getTotalAmountOfCupcakes}"></p>
             </div>
         </ul>
     </div>

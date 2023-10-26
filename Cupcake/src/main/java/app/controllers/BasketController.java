@@ -54,6 +54,9 @@ public class BasketController {
         ctx.attribute("bottomsList", bottoms);
 
         ctx.attribute("orderlines",basket.getOrderlines());
+
+        //Always remember to save session after manipulation
+        ctx.sessionAttribute("currentBasket", basket);
         ctx.render("index.html");
     }
 
@@ -79,7 +82,7 @@ public class BasketController {
 
     }
 
-    public void executeOrder(Context ctx, ConnectionPool connectionPool) throws DatabaseException, SQLException {
+    public static void executeOrder(Context ctx, ConnectionPool connectionPool) throws DatabaseException, SQLException {
         if (isAccountLoggedIn(ctx)) {
             Account account = ctx.sessionAttribute("currentAccount");
             Basket basket = ctx.sessionAttribute("currentBasket");
@@ -89,14 +92,14 @@ public class BasketController {
             Order order = OrderMapper.addOrder(account, basket.getOrderlines(), connectionPool);
             OrderMapper.addOrderline(order, basket.getOrderlines(), connectionPool);
         } else {
-            AccountController.login(ctx, connectionPool);
+            ctx.render("loginpage.html");
         }
     }
-    public boolean isAccountLoggedIn(Context ctx){
+    public static boolean isAccountLoggedIn(Context ctx){
         Account account = ctx.sessionAttribute("currentAccount");
         return account != null;
     }
-    public void withdrawPayment(Context ctx, Account account, int amountTowithdraw){
+    public static void withdrawPayment(Context ctx, Account account, int amountTowithdraw){
         int currentBalance = account.getBalance();
         if (currentBalance >= amountTowithdraw){
             int newBalance = currentBalance - amountTowithdraw;

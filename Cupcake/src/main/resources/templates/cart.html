@@ -27,7 +27,7 @@
             <div id="basket">
                 <a href="/cart"><img src="../public/images/basket.png" th:src="@{/images/basket.png}" width="40rem"/></a>
                 <div>
-                    <p th:text="${#lists.size(orderlines)}"></p>
+                    <p th:text="${#ctx.session.currentBasket.getTotalAmountOfCupcakes}"></p>
                 </div>
             </div>
         </ul>
@@ -65,7 +65,7 @@
                 <button type="submit" formaction="/addmore">Bestil flere</button>
             </form>
             <form method="post">
-                <button type="submit" name="order_id" formaction="/ordernow" >Bestil</button>
+                <button type="submit" name="order_id" formaction="/ordernow" >Køb</button>
             </form>
 
 

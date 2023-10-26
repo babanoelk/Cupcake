@@ -29,15 +29,13 @@ public class Main {
         app.post("/addcupcake", ctx -> BasketController.addOrderline(ctx, connectionPool));
         app.get("/login", ctx -> ctx.render("loginpage.html"));
         app.post("/loggedin", ctx -> AccountController.login(ctx, connectionPool));
-
         app.get("/createaccount", ctx -> ctx.render("create-account.html"));
         app.post("/account-created", ctx -> AccountController.createAccount(ctx, connectionPool));
-
         app.get("/cart", ctx -> BasketController.showAllOrderlines(ctx));
         app.post("/delete", ctx -> BasketController.deleteOrderline(ctx));
         app.post("/addmore", ctx -> BasketController.addMoreCupcakes(ctx, connectionPool));
-
         app.get("/min-side", ctx -> AccountController.getOrders(ctx, connectionPool));
+        app.post("/ordernow", ctx -> BasketController.executeOrder(ctx, connectionPool));
 
     }
 }
