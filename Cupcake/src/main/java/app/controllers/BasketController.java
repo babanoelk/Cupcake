@@ -17,9 +17,7 @@ public class BasketController {
 
     public static void showAllOrderlines(Context ctx) {
         Basket basket = ctx.sessionAttribute("currentBasket");
-        List<Orderline> orderlines = basket.getOrderlines();
-
-        ctx.sessionAttribute("orderlines", orderlines);
+        ctx.attribute("orderlines",basket.getOrderlines());
         ctx.render("cart.html");
     }
 

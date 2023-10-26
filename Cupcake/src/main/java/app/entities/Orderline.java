@@ -22,6 +22,11 @@ public class Orderline {
         return id;
     }
 
+    @Override
+    public String toString() {
+        return "Topping: "+topping.getName() + " Bottom: " + bottom.getName();
+    }
+
     public int getAmount() {
         return amount;
     }
@@ -34,3 +39,5 @@ public class Orderline {
         return topping;
     }
 }
+
+

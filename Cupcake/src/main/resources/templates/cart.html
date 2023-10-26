@@ -27,6 +27,7 @@
                 <a href="/cart"><img src="../public/images/basket.png" th:src="@{/images/basket.png}" width="40rem"/></a>
                 <div th:if="${orderlines != null}">
                     <p th:text="${#lists.size(orderlines)}"></p>
+                </div>
             </div>
         </ul>
     </div>
@@ -35,26 +36,19 @@
             <h2>Din ordre</h2>
             <table>
                 <tr>
-                    <th>Task</th>
+                    <th>Ordre</th>
                     <th>Action</th>
                 </tr>
-                <tr th:each="task : ${tasks}" th:if="${task.done}">
-                    <td th:text="${task.name}">Name of task</td>
+                <tr th:each="order : ${orderlines}">
+                    <td th:text="${order.toString()}">Name of task</td>
                     <td class="taskform">
                         <form class="taskform" method="post">
-                            <button type="submit" name="task_id" formaction="/undo" th:value="${task.id}">Undo</button>
-                        </form>
-                        <form  method="post">
-                            <button type="submit" name="task_id" formaction="/edit" th:value="${task.id}">Edit</button>
-                        </form>
-                        <form class="taskform" method="post">
-                            <button type="submit" name="task_id" formaction="/delete" th:value="${task.id}">Delete</button>
+                            <button type="submit" name="order_id" formaction="/delete" th:value="${order.id}">Delete</button>
                         </form>
                     </td>
                 </tr>
             </table>
         </div>
-
     </div>
 </div>
 </body>
