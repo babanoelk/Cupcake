@@ -21,11 +21,31 @@ public class AccountController {
             ctx.sessionAttribute("currentUser", account);
 
             ctx.render("index.html");
-        }
-        catch (DatabaseException e)
-        {
+        } catch (DatabaseException e) {
             ctx.attribute("message", e.getMessage());
             ctx.render("loginpage.html");
+        }
+    }
+
+    public static void createAccount(Context ctx, ConnectionPool connectionPool) {
+        String name = ctx.formParam("name");
+        String email = ctx.formParam("email");
+        String password = ctx.formParam("password");
+        String password1 = ctx.formParam("password1");
+
+        if (password.equals(password1)) {
+            try {
+                AccountMapper.createAccount(name, email, password, connectionPool);
+                ctx.attribute("message", "Velkommen til OLSKER CUPCAKES familien!");
+                ctx.render("test.html");
+            } catch (DatabaseException e) {
+                ctx.attribute("message", e.getMessage());
+                ctx.render("create-account.html");
+                //}
+            } /*else{
+            ctx.attribute("message", "Dine kodeord stemmer ikke overens!");
+            ctx.render("create-account.html");
+        }*/
         }
     }
 }
