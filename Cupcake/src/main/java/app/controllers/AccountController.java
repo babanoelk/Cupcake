@@ -37,15 +37,16 @@ public class AccountController {
             try {
                 AccountMapper.createAccount(name, email, password, connectionPool);
                 ctx.attribute("message", "Velkommen til OLSKER CUPCAKES familien!");
-                ctx.render("test.html");
+                ctx.render("test.html"); // todo: skal sende dig videre til "tak for din bestilling" side.
             } catch (DatabaseException e) {
                 ctx.attribute("message", e.getMessage());
                 ctx.render("create-account.html");
-                //}
-            } /*else{
+                }
+            } else{
             ctx.attribute("message", "Dine kodeord stemmer ikke overens!");
             ctx.render("create-account.html");
-        }*/
-        }
+            }
+
     }
+
 }

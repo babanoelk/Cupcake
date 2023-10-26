@@ -18,6 +18,9 @@ public class Account {
 
     }
 
+    public static void put(String email, Account account) {
+    }
+
     public int getId() {
         return id;
     }
@@ -41,6 +44,8 @@ public class Account {
     public int getBalance() {
         return balance;
     }
+    public void setBalance(int newBalance) {
+    }
 
     public List<Order> getAllOrders() {
         return orders;
@@ -62,4 +67,5 @@ public class Account {
     public void addOrder(){
 
     }
+
 }

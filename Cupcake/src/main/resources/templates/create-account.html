@@ -11,10 +11,10 @@
         <p>Indtast venligst brugerinfo:</p>
         <div>
             <form method="post">
-                <input type="text" name="name" placeholder="Navn"/>
-                <input type="text" name="email" placeholder="E-mail"/>
-                <input type="password" name="password" placeholder="Kodeord"/>
-                <input type="password" name="password1" placeholder="Gentag kodeord"/>
+                <input type="text" name="name" placeholder="Navn" required/>
+                <input type="text" name="email" placeholder="E-mail" required/>
+                <input type="password" name="password" placeholder="Kodeord" required/>
+                <input type="password" name="password1" placeholder="Gentag kodeord" required/>
                 <button type="submit" formaction="/account-created">Opret bruger</button>
             </form>
         </div>
