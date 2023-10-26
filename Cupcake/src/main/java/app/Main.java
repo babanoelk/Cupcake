@@ -4,6 +4,7 @@ import app.config.ThymeleafConfig;
 import app.controllers.BasketController;
 import app.controllers.CakeController;
 import app.controllers.AccountController;
+import app.entities.Order;
 import app.persistence.ConnectionPool;
 import io.javalin.Javalin;
 import io.javalin.rendering.template.JavalinThymeleaf;
@@ -36,7 +37,7 @@ public class Main {
 
         app.get("/cart", ctx -> BasketController.showAllOrderlines(ctx));
 
-        app.get("/min-side", ctx -> ctx.render("min-side.html"));
-        app.post("/min-side", ctx -> AccountController.updateOrders(ctx, connectionPool));
+        app.get("/min-side", ctx -> AccountController.getOrders(ctx, connectionPool));
+
     }
 }

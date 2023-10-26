@@ -1,14 +1,12 @@
 package app.controllers;
 
-import app.entities.*;
+import app.entities.Account;
+import app.entities.Order;
 import app.exceptions.DatabaseException;
 import app.persistence.AccountMapper;
-import app.persistence.BottomMapper;
 import app.persistence.ConnectionPool;
-import app.persistence.ToppingMapper;
 import io.javalin.http.Context;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class AccountController {
@@ -54,16 +52,16 @@ public class AccountController {
         }
     }
 
-    public static void updateOrders(Context ctx, ConnectionPool connectionPool) throws DatabaseException {
+    public static void getOrders(Context ctx, ConnectionPool connectionPool) throws DatabaseException {
 
         List<Order> ordersList;
         Account account = ctx.sessionAttribute("currentAccount");
 
-        ordersList = AccountMapper.getAllOrdersByID(account.getId(),connectionPool);
+        ordersList = AccountMapper.getAllOrdersByID(account.getId(), connectionPool);
 
-        ctx.attribute("orders_list", ordersList);
+        ctx.attribute("orderlines", ordersList);
 
         ctx.render("min-side.html");
-    }
 
+    }
 }
