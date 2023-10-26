@@ -12,8 +12,6 @@ import java.util.List;
 public class AccountController {
 
     public static void login(Context ctx, ConnectionPool connectionPool) {
-
-
         String name = ctx.formParam("email");
         String password = ctx.formParam("password");
 
