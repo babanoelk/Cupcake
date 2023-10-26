@@ -45,7 +45,6 @@ public class BasketController {
 
         ctx.attribute("orderlines",basket.getOrderlines());
         ctx.render("index.html");
-
     }
 
     public void executeOrder(Context ctx, ConnectionPool connectionPool) throws DatabaseException, SQLException {
