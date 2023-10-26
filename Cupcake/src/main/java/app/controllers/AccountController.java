@@ -19,9 +19,15 @@ public class AccountController {
         try {
 
             Account account = AccountMapper.login(name, password, connectionPool);
-            ctx.sessionAttribute("currentUser", account);
+            ctx.sessionAttribute("currentAccount", account);
+            ctx.sessionAttribute("is_admin", account.isAdmin());
 
-            ctx.render("index.html");
+            if (account.isAdmin() == true) {
+                ctx.render("admin-side.html");
+            }
+            else {
+                ctx.render("indexloggedin.html");
+            }
         } catch (DatabaseException e) {
             ctx.attribute("message", e.getMessage());
             ctx.render("loginpage.html");
@@ -42,11 +48,11 @@ public class AccountController {
             } catch (DatabaseException e) {
                 ctx.attribute("message", e.getMessage());
                 ctx.render("create-account.html");
-                }
-            } else{
+            }
+        } else {
             ctx.attribute("message", "Dine kodeord stemmer ikke overens!");
             ctx.render("create-account.html");
-            }
+        }
 
     }
 

@@ -11,11 +11,21 @@ public class Account {
     private int balance;
     private List<Order> orders;
 
-    public Account (int id, String name, String email, String password, boolean isAdmin){
-
+    public Account(int id, String name, String email, String password, boolean isAdmin) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.isAdmin = isAdmin;
     }
-    public Account (int id, String name, String email, String password, boolean isAdmin, int balance){
 
+    public Account(int id, String name, String email, String password, boolean isAdmin, int balance) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.isAdmin = isAdmin;
+        this.balance = balance;
     }
 
     public static void put(String email, Account account) {

@@ -1,9 +1,9 @@
 package app;
 
 import app.config.ThymeleafConfig;
+import app.controllers.AccountController;
 import app.controllers.BasketController;
 import app.controllers.CakeController;
-import app.controllers.AccountController;
 import app.persistence.ConnectionPool;
 import io.javalin.Javalin;
 import io.javalin.rendering.template.JavalinThymeleaf;
@@ -36,6 +36,9 @@ public class Main {
         app.post("/addmore", ctx -> BasketController.addMoreCupcakes(ctx, connectionPool));
         app.get("/min-side", ctx -> AccountController.getOrders(ctx, connectionPool));
         app.post("/ordernow", ctx -> BasketController.executeOrder(ctx, connectionPool));
+        app.get("/admin-ordre-side", ctx -> AccountController.getOrders(ctx, connectionPool));
+        app.get("/admin-ordre-side", ctx -> AccountController.getOrders(ctx, connectionPool));
+
 
     }
 }
