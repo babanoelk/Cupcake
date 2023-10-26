@@ -56,7 +56,8 @@ public class BasketController {
         if (isAccountLoggedIn(ctx)) {
             Account account = ctx.sessionAttribute("currentAccount");
             Basket basket = ctx.sessionAttribute("currentBasket");
-            int completeOrder = totalPrice(basket);
+            Basket basket1 = ctx.sessionAttribute("currentBasket");
+            int completeOrder = basket1.getOrderTotalPrice();
             withdrawPayment(ctx, account, completeOrder);
             Order order = OrderMapper.addOrder(account, basket.getOrderlines(), connectionPool);
             OrderMapper.addOrderline(order, basket.getOrderlines(), connectionPool);
@@ -64,12 +65,6 @@ public class BasketController {
             AccountController.login(ctx, connectionPool);
         }
     }
-
-    private int totalPrice(Basket basket) {
-        
-        return 0;
-    }
-
     public boolean isAccountLoggedIn(Context ctx){
         Account account = ctx.sessionAttribute("currentAccount");
         return account != null;
