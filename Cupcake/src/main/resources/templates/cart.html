@@ -33,20 +33,31 @@
         </ul>
     </div>
 
-        <div>
+        <div id="order">
             <h2>Din ordre</h2>
             <table>
                 <tr>
-                    <th>Ordre</th>
+                    <th>Top</th>
+                    <th>Bund</th>
+                    <th>Antal</th>
+                    <th>Total Pris</th>
                     <th>Action</th>
                 </tr>
-                <tr th:each="order : ${orderlines}">
-                    <td th:text="${order.toString()}">Name of task</td>
+                <tr th:each="orderline : ${orderlines}">
+                    <td th:text="${orderline.getTopping().getName()}">Top</td>
+                    <td th:text="${orderline.getBottom().getName()}">Bund</td>
+                    <td th:text="${orderline.getAmount()}">Antal</td>
+                    <td th:text="${orderline.getPricePrOrderLine()+'kr'}">Total Pris</td>
                     <td class="taskform">
                         <form class="taskform" method="post">
-                            <button type="submit" name="order_id" formaction="/delete" th:value="${order.id}">Delete</button>
+                            <button type="submit" name="order_id" formaction="/delete" th:value="${orderline.id}">Delete</button>
                         </form>
                     </td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <td th:text="${'I alt: '+ #ctx.session.currentBasket.getOrderTotalPrice + 'kr'}">total pris</td>
                 </tr>
             </table>
         </div>
