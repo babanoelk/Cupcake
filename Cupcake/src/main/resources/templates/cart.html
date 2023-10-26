@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Frontpage</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../public/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
+</head>
+
+<body>
+<!--
+<header id="header">
+    <h1>OLSKER CUPCAKES</h1>
+    <h3> MUMS FILIBABA</h3>
+    <img src="../public/images/cupcakelogo.png"/>
+</header>
+-->
+
+<div id="main-container">
+    <div id="navbar">
+        <ul class="main-menu">
+            <li class="button"><a href="/login">Login</a></li>
+        </ul>
+        <ul class="main-menu">
+            <div id="basket">
+                <a href="/cart"><img src="../public/images/basket.png" th:src="@{/images/basket.png}" width="40rem"/></a>
+                <div th:if="${orderlines != null}">
+                    <p th:text="${#lists.size(orderlines)}"></p>
+                </div>
+            </div>
+        </ul>
+    </div>
+
+        <div>
+            <h2>Din ordre</h2>
+            <table>
+                <tr>
+                    <th>Ordre</th>
+                    <th>Action</th>
+                </tr>
+                <tr th:each="order : ${orderlines}">
+                    <td th:text="${order.toString()}">Name of task</td>
+                    <td class="taskform">
+                        <form class="taskform" method="post">
+                            <button type="submit" name="order_id" formaction="/delete" th:value="${order.id}">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

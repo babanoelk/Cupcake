@@ -41,8 +41,7 @@ public class ToppingMapper {
 
             Topping topping = null;
 
-            String sql = "select * from topping where id = ?";
-
+            String sql = "select * from topping where topping_id = ?";
             try (Connection connection = connectionPool.getConnection())
             {
                 try (PreparedStatement ps = connection.prepareStatement(sql))
@@ -60,7 +59,7 @@ public class ToppingMapper {
             }
             catch (SQLException e)
             {
-                throw new DatabaseException("Fejl ved hentning af task med id = " + toppingId);
+                throw new DatabaseException("Fejl ved hentning af topping med id = " + toppingId);
             }
             return topping;
         }

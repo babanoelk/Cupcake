@@ -15,15 +15,9 @@ public class BasketController {
 
     Basket basket = new Basket();
 
-    public static void ShowAllOrderlines(Basket basket, Context ctx) {
-        List<Orderline> orderlines = basket.getOrderlines();
-    }
-
     public static void showAllOrderlines(Context ctx) {
         Basket basket = ctx.sessionAttribute("currentBasket");
-        List<Orderline> orderlines = basket.getOrderlines();
-
-        ctx.sessionAttribute("orderlines", orderlines);
+        ctx.attribute("orderlines",basket.getOrderlines());
         ctx.render("cart.html");
     }
 
@@ -31,9 +25,9 @@ public class BasketController {
     //Metoden skal tilføje en ordrelinje til kurven
     public static void addOrderline(Context ctx, ConnectionPool connectionPool) throws DatabaseException {
 
-        int toppingId = Integer.parseInt(ctx.formParam("topping"));
+        int toppingId = Integer.parseInt(ctx.formParam("top"));
         int bottomId = Integer.parseInt(ctx.formParam("bottom"));
-        int amount = Integer.parseInt(ctx.formParam("amount"));
+        int amount = Integer.parseInt(ctx.formParam("antal"));
 
         Topping topping = ToppingMapper.getToppingById(toppingId, connectionPool);
         Bottom bottom = BottomMapper.getBottomById(bottomId, connectionPool);
@@ -42,6 +36,14 @@ public class BasketController {
 
         Basket basket = ctx.sessionAttribute("currentBasket");
         basket.addOrderline(orderline);
+
+        List<Topping> toppings = ToppingMapper.getAllToppings(connectionPool);
+        List<Bottom> bottoms = BottomMapper.getAllBottoms(connectionPool);
+
+        ctx.attribute("toppingsList", toppings);
+        ctx.attribute("bottomsList", bottoms);
+
+        ctx.attribute("orderlines",basket.getOrderlines());
         ctx.render("index.html");
 
     }
