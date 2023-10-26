@@ -24,7 +24,9 @@ public class Order {
         this.accountID = accountID;
     }
 
-
+    public int getAccountID() {
+        return accountID;
+    }
 
     public int getId() {
         return id;
