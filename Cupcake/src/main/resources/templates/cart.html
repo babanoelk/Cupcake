@@ -26,7 +26,7 @@
         <ul class="main-menu">
             <div id="basket">
                 <a href="/cart"><img src="../public/images/basket.png" th:src="@{/images/basket.png}" width="40rem"/></a>
-                <div th:if="${orderlines != null}">
+                <div>
                     <p th:text="${#lists.size(orderlines)}"></p>
                 </div>
             </div>
@@ -43,14 +43,14 @@
                     <th>Total Pris</th>
                     <th>Action</th>
                 </tr>
-                <tr th:each="orderline : ${orderlines}">
+                <tr th:each="orderline, status : ${orderlines}">
                     <td th:text="${orderline.getTopping().getName()}">Top</td>
                     <td th:text="${orderline.getBottom().getName()}">Bund</td>
                     <td th:text="${orderline.getAmount()}">Antal</td>
                     <td th:text="${orderline.getPricePrOrderLine()+'kr'}">Total Pris</td>
-                    <td class="taskform">
+                    <td>
                         <form class="taskform" method="post">
-                            <button type="submit" name="order_id" formaction="/delete" th:value="${orderline.id}">Delete</button>
+                            <button type="submit" name="order_id" formaction="/delete" th:value="${status.index}">Delete</button>
                         </form>
                     </td>
                 </tr>
@@ -60,6 +60,15 @@
                     <td th:text="${'I alt: '+ #ctx.session.currentBasket.getOrderTotalPrice + 'kr'}">total pris</td>
                 </tr>
             </table>
+
+            <form method="post">
+                <button type="submit" formaction="/addmore">Bestil flere</button>
+            </form>
+            <form method="post">
+                <button type="submit" name="order_id" formaction="/ordernow" >Bestil</button>
+            </form>
+
+
         </div>
     </div>
 </div>

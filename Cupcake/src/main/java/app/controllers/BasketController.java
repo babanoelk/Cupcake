@@ -13,10 +13,20 @@ import java.util.List;
 
 public class BasketController {
 
-    Basket basket = new Basket();
-
     public static void showAllOrderlines(Context ctx) {
         Basket basket = ctx.sessionAttribute("currentBasket");
+        ctx.attribute("orderlines",basket.getOrderlines());
+        ctx.render("cart.html");
+    }
+
+
+    public static void deleteOrderline(Context ctx) {
+        Basket basket = ctx.sessionAttribute("currentBasket");
+
+        int basketIndex = Integer.parseInt(ctx.formParam("order_id"));
+
+        basket.getOrderlines().remove(basketIndex);
+        ctx.sessionAttribute("currentBasket", basket);
         ctx.attribute("orderlines",basket.getOrderlines());
         ctx.render("cart.html");
     }
@@ -48,9 +58,27 @@ public class BasketController {
 
     }
 
-    public static void deleteOrderline(Context ctx) {
-    }
+    public static void addMoreCupcakes(Context ctx, ConnectionPool connectionPool) {
 
+        try {
+            Basket basket = ctx.sessionAttribute("currentBasket");
+
+            ctx.attribute("orderlines",basket.getOrderlines());
+
+            List<Topping> toppings = ToppingMapper.getAllToppings(connectionPool);
+            List<Bottom> bottoms = BottomMapper.getAllBottoms(connectionPool);
+
+            ctx.attribute("toppingsList", toppings);
+            ctx.attribute("bottomsList", bottoms);
+
+            ctx.render("index.html");
+
+        } catch (DatabaseException e) {
+            ctx.attribute("message", e.getMessage());
+            ctx.render("index.html");
+        }
+
+    }
 
     public void executeOrder(Context ctx, ConnectionPool connectionPool) throws DatabaseException, SQLException {
         if (true) { //todo: Lav en metode her som tjekker om personen er logget ind eller ej

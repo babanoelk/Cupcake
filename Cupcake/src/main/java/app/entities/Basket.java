@@ -23,7 +23,7 @@ public class Basket {
         return orderlines;
     }
 
-    //This method is only used int the cart.html. Thats why the methos is showen as not used
+    //This method is only used int the cart.html. That's why the methos is showen as not used
     public int getOrderTotalPrice() {
         int totalPrice = 0;
 
@@ -34,11 +34,15 @@ public class Basket {
         return totalPrice;
     }
 
-    public static void deleteOrderline(Context ctx) {
+    public int getTotalAmountOfCupcakes() {
+        int amount = 0;
 
-        int orderID = Integer.parseInt(ctx.formParam("orderline.id"));
-
+        for (Orderline orderline : orderlines) {
+            amount += orderline.getAmount();
+        }
+        return amount;
     }
 }
+
 
 
