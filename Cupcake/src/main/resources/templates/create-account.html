@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
     <title>Create-account</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../public/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
 </head>
 <body>
+<header th:replace="~{fragments :: header}"></header>
 
 <div>
     <div>
@@ -13,13 +16,13 @@
             <form method="post">
                 <input type="text" name="name" placeholder="Navn"/>
                 <input type="text" name="email" placeholder="E-mail"/>
-                <input type="password" name="password1" placeholder="Kodeord"/>
-                <input type="password" name="password2" placeholder="Gentag kodeord"/>
-                <button type="submit" formaction="/createuser">Opret bruger</button>
+                <input type="password" name="password" placeholder="Kodeord"/>
+                <input type="password" name="password1" placeholder="Gentag kodeord"/>
+                <button type="submit" formaction="/account-created">Opret bruger</button>
             </form>
         </div>
     </div>
 </div>
-
+    <footer th:fragment="footer"/>
 </body>
 </html>
