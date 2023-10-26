@@ -36,5 +36,28 @@ public class AccountMapper {
             throw new DatabaseException(""+e);
         }
     }
+    public static void createAccount(String name, String email, String password, ConnectionPool connectionPool) throws DatabaseException{
+        String sql = "insert into account (name, email, password, admin, balance) values (?,?,?, false, 500)";
+        try (Connection connection = connectionPool.getConnection()){
+            try (PreparedStatement ps = connection.prepareStatement(sql)){
+                ps.setString(1, name);
+                ps.setString(2, email);
+                ps.setString(3, password);
+                int rowsAffected = ps.executeUpdate();
+                if (rowsAffected != 1) {
+                    throw new DatabaseException("Der opstod en fejl under oprettelsen af brugeren");
+                }
+            }
+
+        } catch (SQLException e){
+            String msg = "Der er opstod en fejl. Prøv igen tak";
+            if (e.getMessage().startsWith("Fejl: Allerede oprettet. ")){
+                msg = "Email'en er allerede registreret. Prøv igen eller kontakt kundeservice.";
+            }
+            throw new DatabaseException(msg);
+        }
+
+
+    }
 }
 
