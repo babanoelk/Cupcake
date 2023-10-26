@@ -1,10 +1,9 @@
 package app;
 
 import app.config.ThymeleafConfig;
+import app.controllers.AccountController;
 import app.controllers.BasketController;
 import app.controllers.CakeController;
-import app.controllers.AccountController;
-import app.entities.Order;
 import app.persistence.ConnectionPool;
 import io.javalin.Javalin;
 import io.javalin.rendering.template.JavalinThymeleaf;
@@ -26,7 +25,7 @@ public class Main {
 
 
         // Routing
-        app.get("/", ctx ->  CakeController.loadFrontPageData(ctx, connectionPool));
+        app.get("/", ctx -> CakeController.loadFrontPageData(ctx, connectionPool));
         app.post("/addcupcake", ctx -> BasketController.addOrderline(ctx, connectionPool));
         app.get("/login", ctx -> ctx.render("loginpage.html"));
         app.post("/loggedin", ctx -> AccountController.login(ctx, connectionPool));
@@ -38,6 +37,10 @@ public class Main {
         app.get("/cart", ctx -> BasketController.showAllOrderlines(ctx));
 
         app.get("/min-side", ctx -> AccountController.getOrders(ctx, connectionPool));
+
+        app.get("/admin-ordre-side", ctx -> AccountController.getOrders(ctx, connectionPool));
+        app.get("/admin-ordre-side", ctx -> AccountController.getOrders(ctx, connectionPool));
+
 
     }
 }
