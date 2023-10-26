@@ -72,4 +72,27 @@ public class AccountController {
 
     }
 
+    public static void getAllCustomers(Context ctx, ConnectionPool connectionPool) throws DatabaseException {
+
+        List<Account> accountList;
+
+        accountList = AccountMapper.getAllCustomers(connectionPool);
+
+        ctx.attribute("accountList", accountList);
+
+        ctx.render("admin-kunde-side.html");
+
+    }
+
+    public static void getAllOrders(Context ctx, ConnectionPool connectionPool) throws DatabaseException {
+
+        List<Order> orderList;
+
+        orderList = AccountMapper.getAllOrders(connectionPool);
+
+        ctx.attribute("order_list", orderList);
+
+        ctx.render("alle-ordrer-side-admin.html");
+
+    }
 }

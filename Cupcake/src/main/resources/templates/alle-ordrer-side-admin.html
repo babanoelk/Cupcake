@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>admin-ordrer-siden</title>
+</head>
+<body>
+
+<div>
+    <div>
+        <h1>Alle kundernes ordrer</h1>
+        <table>
+            <thead>
+            <tr>
+                <th>Ordre ID</th>
+                <th>Ordre Dato</th>
+                <th>Antal Kager</th>
+                <th>Konto ID</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="order : ${order_list}">
+                <td th:text="${order.getId()}"></td>
+                <td th:text="${order.getOrderDate()}"></td>
+                <td th:text="${order.getOrderSum()}"></td>
+                <td th:text="${order.getAccountID()}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+</body>
+</html>

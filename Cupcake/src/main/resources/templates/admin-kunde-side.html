@@ -2,9 +2,38 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Kunder</title>
+    <title>admin-kunde-siden</title>
 </head>
 <body>
+
+<div>
+    <div>
+        <h1>Alle kunder</h1>
+        <table>
+            <thead>
+            <tr>
+                <th>Account ID</th>
+                <th>Name Dato</th>
+                <th>Email</th>
+                <th>Password</th>
+                <th>Admin</th>
+                <th>Balance</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="account : ${accountList}">
+                <td th:text="${account.getId()}"></td>
+                <td th:text="${account.getName()}"></td>
+                <td th:text="${account.getEmail()}"></td>
+                <td th:text="${account.getPassword()}"></td>
+                <td th:text="${account.isAdmin()}"></td>
+                <td th:text="${account.getBalance}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
 
 </body>
 </html>

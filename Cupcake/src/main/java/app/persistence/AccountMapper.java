@@ -8,13 +8,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import java.util.HashMap;
-import java.util.Map;
 
 
 public class AccountMapper {
@@ -94,5 +90,60 @@ public class AccountMapper {
         }
         return orders;
     }
+
+    public static List<Account> getAllCustomers(ConnectionPool connectionPool) throws DatabaseException{
+
+    List<Account> accountList = new ArrayList<>();
+
+        String sql = "SELECT * from account order by account_id";
+
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+
+                ResultSet rs = ps.executeQuery();
+
+                while(rs.next()) {
+                    int accountID = rs.getInt("account_id");
+                    String name = rs.getString("name");
+                    String email = rs.getString("email");
+                    String password = rs.getString("password");
+                    boolean isAdmin = rs.getBoolean("admin");
+                    int balance = rs.getInt("balance");
+
+                    accountList.add(new Account(accountID, name, email, password, isAdmin, balance));
+
+                }
+            }
+        } catch (SQLException e) {
+            throw new DatabaseException("Fejl!!!!");
+        }
+        return accountList;
+    }
+
+    public static List<Order> getAllOrders(ConnectionPool connectionPool) throws DatabaseException {
+
+        List<Order> orders = new ArrayList<>();
+
+        String sql = "select * from customer_order order by order_id";
+
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+
+                ResultSet rs = ps.executeQuery();
+
+                while (rs.next()) {
+                    int orderID = rs.getInt("order_id");
+                    Date orderDate = rs.getDate("order_date");
+                    int totalAmount = rs.getInt("total_amount");
+                    int accountID = rs.getInt("account_id");
+                    orders.add(new Order(orderID, orderDate, totalAmount, accountID));
+                }
+            }
+        } catch (SQLException e) {
+            throw new DatabaseException("Fejl!!!!");
+        }
+        return orders;
+    }
+
 }
 

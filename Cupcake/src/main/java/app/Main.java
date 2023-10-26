@@ -38,8 +38,8 @@ public class Main {
 
         app.get("/min-side", ctx -> AccountController.getOrders(ctx, connectionPool));
 
-        app.get("/admin-ordre-side", ctx -> AccountController.getOrders(ctx, connectionPool));
-        app.get("/admin-ordre-side", ctx -> AccountController.getOrders(ctx, connectionPool));
+        app.get("/admin-kunde-side", ctx -> AccountController.getAllCustomers(ctx, connectionPool));
+        app.get("/admin-ordre-side", ctx -> AccountController.getAllOrders(ctx, connectionPool));
 
 
     }
