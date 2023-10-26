@@ -52,14 +52,33 @@ public class BasketController {
 
 
     public void executeOrder(Context ctx, ConnectionPool connectionPool) throws DatabaseException, SQLException {
-        if (true) { //todo: Lav en metode her som tjekker om personen er logget ind eller ej
+        if (isAccountLoggedIn(ctx)) {
             Account account = ctx.sessionAttribute("currentAccount");
             Basket basket = ctx.sessionAttribute("currentBasket");
+            Basket basket1 = ctx.sessionAttribute("currentBasket");
+            int completeOrder = basket1.getOrderTotalPrice();
+            withdrawPayment(ctx, account, completeOrder);
             Order order = OrderMapper.addOrder(account, basket.getOrderlines(), connectionPool);
             OrderMapper.addOrderline(order, basket.getOrderlines(), connectionPool);
         } else {
-            //todo: lav en metode som enten opretter en bruger eller logger ind
+            AccountController.login(ctx, connectionPool);
         }
     }
+    public boolean isAccountLoggedIn(Context ctx){
+        Account account = ctx.sessionAttribute("currentAccount");
+        return account != null;
+    }
+    public void withdrawPayment(Context ctx, Account account, int amountTowithdraw){
+        int currentBalance = account.getBalance();
+        if (currentBalance >= amountTowithdraw){
+            int newBalance = currentBalance - amountTowithdraw;
+            account.setBalance(newBalance);
+            ctx.sessionAttribute("currentAccount", account);
+        } else{
+            ctx.attribute("message", "Beløbet kunne ikke trækkes fra din konto");
+            ctx.render("index.html");
+        }
 
+    }
+    
 }
