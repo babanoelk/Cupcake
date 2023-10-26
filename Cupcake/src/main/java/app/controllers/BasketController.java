@@ -45,7 +45,6 @@ public class BasketController {
 
         ctx.attribute("orderlines",basket.getOrderlines());
         ctx.render("index.html");
-
     }
 
     public static void deleteOrderline(Context ctx) {
