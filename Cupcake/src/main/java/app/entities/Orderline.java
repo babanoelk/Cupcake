@@ -38,6 +38,11 @@ public class Orderline {
     public Topping getTopping() {
         return topping;
     }
+
+    public int getPricePrOrderLine(){
+        return (topping.getPrice()+ bottom.getPrice()) * amount;
+    }
+
 }
 
 
