@@ -98,4 +98,8 @@ public class AccountController {
         ctx.render("alle-ordrer-side-admin.html");
 
     }
+    public static void logout(Context ctx){
+        ctx.req().getSession().invalidate();
+        ctx.redirect("/");
+    }
 }
