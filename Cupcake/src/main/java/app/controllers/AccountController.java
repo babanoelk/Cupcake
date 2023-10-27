@@ -7,6 +7,7 @@ import app.persistence.AccountMapper;
 import app.persistence.ConnectionPool;
 import io.javalin.http.Context;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class AccountController {
@@ -26,31 +27,11 @@ public class AccountController {
 
             }
             else {
-                CakeController.loadFrontPageData( ctx, connectionPool);
-            }
-        } catch (DatabaseException e) {
-            ctx.attribute("message", e.getMessage());
-            ctx.render("loginpage.html");
-        }
-    }
-
-
-
-    public static void loginFromBasket(Context ctx, ConnectionPool connectionPool) {
-        String name = ctx.formParam("email");
-        String password = ctx.formParam("password");
-        try {
-
-            Account account = AccountMapper.login(name, password, connectionPool);
-            ctx.sessionAttribute("currentAccount", account);
-            ctx.sessionAttribute("is_admin", account.isAdmin());
-
-            if (account.isAdmin() == true) {
-                ctx.render("admin-side.html");
-
-            }
-            else {
-                CakeController.loadPaymentPageData( ctx, connectionPool);
+                try {
+                    BasketController.orderNow(ctx, connectionPool);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
             }
         } catch (DatabaseException e) {
             ctx.attribute("message", e.getMessage());

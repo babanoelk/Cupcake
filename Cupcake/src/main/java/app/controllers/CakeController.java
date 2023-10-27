@@ -37,29 +37,4 @@ public class CakeController {
             ctx.render("index.html");
         }
     }
-
-
-    public static void loadPaymentPageData(Context ctx, ConnectionPool connectionPool) {
-
-        try {
-            Basket basket = new Basket();
-
-            ctx.sessionAttribute("currentBasket", basket);
-
-            ctx.attribute("orderlines",basket.getOrderlines());
-
-            List<Topping> toppings = ToppingMapper.getAllToppings(connectionPool);
-            List<Bottom> bottoms = BottomMapper.getAllBottoms(connectionPool);
-
-            ctx.attribute("toppingsList", toppings);
-            ctx.attribute("bottomsList", bottoms);
-
-            ctx.render("payment.html");
-
-        } catch (DatabaseException e) {
-            ctx.attribute("message", e.getMessage());
-            ctx.render("index.html");
-        }
-    }
-
 }
