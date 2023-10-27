@@ -41,8 +41,8 @@ public class Main {
         app.get("/admin-ordre-side", ctx -> AccountController.getAllOrders(ctx, connectionPool));
 
         app.post("/ordernow", ctx -> BasketController.executeOrder(ctx, connectionPool));
-        app.get("/admin-ordre-side", ctx -> AccountController.getOrders(ctx, connectionPool));
-        app.get("/admin-ordre-side", ctx -> AccountController.getOrders(ctx, connectionPool));
+        //app.get("/admin-ordre-side", ctx -> AccountController.getOrders(ctx, connectionPool));
+        //app.get("/admin-ordre-side", ctx -> AccountController.getOrders(ctx, connectionPool));
 
     }
 }

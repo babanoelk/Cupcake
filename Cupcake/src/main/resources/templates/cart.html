@@ -10,13 +10,6 @@
 
 <body>
 <header th:replace="~{fragments :: header}"></header>
-<!--
-<header id="header">
-    <h1>OLSKER CUPCAKES</h1>
-    <h3> MUMS FILIBABA</h3>
-    <img src="../public/images/cupcakelogo.png"/>
-</header>
--->
 
 <div id="main-container">
     <div id="navbar">
@@ -50,7 +43,7 @@
                     <td th:text="${orderline.getPricePrOrderLine()+'kr'}">Total Pris</td>
                     <td>
                         <form class="taskform" method="post">
-                            <button type="submit" name="order_id" formaction="/delete" th:value="${status.index}">Delete</button>
+                            <button type="submit" name="order_id" formaction="/delete/#order" th:value="${status.index}">Delete</button>
                         </form>
                     </td>
                 </tr>

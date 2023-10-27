@@ -11,21 +11,7 @@
 <body>
 <header th:replace="~{fragments :: header}"></header>
 
-<h1>Welcome to the Javalin / Thymeleaf demo</h1>
-
-<p>This is your first web application in this world</p>
 <div id="main-container">
-    <div id="navbar">
-        <ul class="main-menu">
-            <li class="button"><a href="/login">Login</a></li>
-        </ul>
-        <ul class="main-menu">
-            <div id="basket">
-                <a href="/cart"><img src="../public/images/basket.png" th:src="@{/images/basket.png}" width="40rem"/></a>
-                <p th:text="${#ctx.session.currentBasket.getTotalAmountOfCupcakes}"></p>
-            </div>
-        </ul>
-    </div>
 
     <div id="main-content">
         <h1>Velkommen til OLSKERS CUPCAKES</h1>
@@ -61,7 +47,7 @@
                     antal cupcakes
                 </option>
             </select>
-            <button type="submit" formaction="/addcupcake">Læg i kurv</button>
+            <button type="submit" formaction="/addcupcake/#main-content">Læg i kurv</button>
         </form>
 
     </div>

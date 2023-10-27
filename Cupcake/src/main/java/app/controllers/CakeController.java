@@ -1,9 +1,6 @@
 package app.controllers;
 
-import app.entities.Basket;
-import app.entities.Bottom;
-import app.entities.Orderline;
-import app.entities.Topping;
+import app.entities.*;
 import app.exceptions.DatabaseException;
 import app.persistence.BottomMapper;
 import app.persistence.ConnectionPool;
@@ -19,8 +16,10 @@ public class CakeController {
 
         try {
             Basket basket = new Basket();
+            Account account = null; //test
 
             ctx.sessionAttribute("currentBasket", basket);
+            ctx.sessionAttribute("currentAccount", account); //test
 
             ctx.attribute("orderlines",basket.getOrderlines());
 
