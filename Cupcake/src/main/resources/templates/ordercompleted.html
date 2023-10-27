@@ -11,19 +11,6 @@
 <body>
 <header th:replace="~{fragments :: header}"></header>
 <div id="main-container">
-    <div id="navbar">
-        <ul class="main-menu">
-            <li class="button"><a href="/login">Login</a></li>
-        </ul>
-        <ul class="main-menu">
-            <div id="basket">
-                <a href="/cart"><img src="../public/images/basket.png" th:src="@{/images/basket.png}" width="40rem"/></a>
-                <div>
-                    <p th:text="${#ctx.session.currentBasket.getTotalAmountOfCupcakes}"></p>
-                </div>
-            </div>
-        </ul>
-    </div>
 
         <div id="order">
             <h2>Betaling</h2>

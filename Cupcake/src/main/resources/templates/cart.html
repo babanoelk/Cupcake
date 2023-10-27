@@ -30,8 +30,7 @@
                     <td th:text="${orderline.getPricePrOrderLine()+'kr'}">Total Pris</td>
                     <td>
                         <form class="taskform" method="post">
-                            <button type="submit" name="order_id" formaction="/delete/#order" th:value="${status.index}">Delete</button>
-                            <button type="submit" name="order_id" formaction="/delete" th:value="${rownr.index}">Delete</button>
+                            <button type="submit" name="order_id" formaction="/delete/#order" th:value="${rownr.index}">Delete</button>
                         </form>
                     </td>
                 </tr>
