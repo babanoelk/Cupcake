@@ -7,15 +7,15 @@ import app.persistence.AccountMapper;
 import app.persistence.ConnectionPool;
 import io.javalin.http.Context;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class AccountController {
 
+
     public static void login(Context ctx, ConnectionPool connectionPool) {
         String name = ctx.formParam("email");
         String password = ctx.formParam("password");
-
-
         try {
 
             Account account = AccountMapper.login(name, password, connectionPool);
@@ -24,9 +24,14 @@ public class AccountController {
 
             if (account.isAdmin() == true) {
                 ctx.render("admin-side.html");
+
             }
             else {
-                ctx.render("indexloggedin.html");
+                try {
+                    BasketController.orderNow(ctx, connectionPool);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
             }
         } catch (DatabaseException e) {
             ctx.attribute("message", e.getMessage());
@@ -92,5 +97,9 @@ public class AccountController {
 
         ctx.render("alle-ordrer-side-admin.html");
 
+    }
+    public static void logout(Context ctx){
+        ctx.req().getSession().invalidate();
+        ctx.redirect("/");
     }
 }

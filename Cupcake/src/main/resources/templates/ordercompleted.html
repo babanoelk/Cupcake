@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Frontpage</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../public/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
+</head>
+
+<body>
+<header th:replace="~{fragments :: header}"></header>
+<div id="main-container">
+    <div id="navbar">
+        <ul class="main-menu">
+            <li class="button"><a href="/login">Login</a></li>
+        </ul>
+        <ul class="main-menu">
+            <div id="basket">
+                <a href="/cart"><img src="../public/images/basket.png" th:src="@{/images/basket.png}" width="40rem"/></a>
+                <div>
+                    <p th:text="${#ctx.session.currentBasket.getTotalAmountOfCupcakes}"></p>
+                </div>
+            </div>
+        </ul>
+    </div>
+
+        <div id="order">
+            <h2>Betaling</h2>
+            <table>
+                <tr>
+                    <th>Top</th>
+                    <th>Bund</th>
+                    <th>Antal</th>
+                    <th>Total Pris</th>
+                </tr>
+                <tr th:each="item : ${receipt}">
+                    <td th:text="${item.getTopping().getName()}">Top</td>
+                    <td th:text="${item.getBottom().getName()}">Bund</td>
+                    <td th:text="${item.getAmount()}">Antal</td>
+                    <td th:text="${item.getPricePrOrderLine()+'kr'}">Total Pris</td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <td th:text="${'Købt for i alt: '+ paymentamount + 'kr'}">total pris</td>
+                </tr>
+            </table>
+
+            <form method="post">
+                <button type="submit" formaction="/withdraw">Tilbage til forside</button>
+            </form>
+        </div>
+    </div>
+</div>
+<footer th:fragment="footer"/>
+</body>
+</html>

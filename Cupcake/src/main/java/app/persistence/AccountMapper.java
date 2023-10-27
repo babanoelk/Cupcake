@@ -91,9 +91,9 @@ public class AccountMapper {
         return orders;
     }
 
-    public static List<Account> getAllCustomers(ConnectionPool connectionPool) throws DatabaseException{
+    public static List<Account> getAllCustomers(ConnectionPool connectionPool) throws DatabaseException {
 
-    List<Account> accountList = new ArrayList<>();
+        List<Account> accountList = new ArrayList<>();
 
         String sql = "SELECT * from account order by account_id";
 
@@ -102,7 +102,7 @@ public class AccountMapper {
 
                 ResultSet rs = ps.executeQuery();
 
-                while(rs.next()) {
+                while (rs.next()) {
                     int accountID = rs.getInt("account_id");
                     String name = rs.getString("name");
                     String email = rs.getString("email");
@@ -145,5 +145,23 @@ public class AccountMapper {
         return orders;
     }
 
+    public static void adjustBalance(int newBalance, Account account, ConnectionPool connectionPool) throws DatabaseException {
+
+        String sql = "UPDATE account SET balance = ? WHERE account_id = ?";
+
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setInt(1, newBalance);
+                ps.setInt(2, account.getId());
+                int rowsAffected = ps.executeUpdate();
+                if (rowsAffected != 1) {
+                    throw new DatabaseException("Der opstod en fejl under ved rettelse af balance");
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
+
 

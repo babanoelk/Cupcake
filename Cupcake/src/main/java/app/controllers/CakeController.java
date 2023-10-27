@@ -36,5 +36,4 @@ public class CakeController {
             ctx.render("index.html");
         }
     }
-
 }

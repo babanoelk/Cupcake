@@ -10,6 +10,19 @@
 </head>
 <body>
 <header th:replace="~{fragments :: header}"></header>
+<div id="navbar">
+    <ul class="main-menu">
+        <li class="button"><a href="/login">Login</a></li>
+    </ul>
+    <ul class="main-menu">
+        <div id="basket">
+            <a href="/cart"><img src="../public/images/basket.png" th:src="@{/images/basket.png}" width="40rem"/></a>
+            <div>
+                <p th:text="${#ctx.session.currentBasket.getTotalAmountOfCupcakes}"></p>
+            </div>
+        </div>
+    </ul>
+</div>
 <div>
     <div>
         <p>Indtast venligt login oplysninger eller opret bruger:</p>
