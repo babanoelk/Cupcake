@@ -1,27 +1,19 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
-<head>
-    <title>Frontpage</title>
+<head th:fragment="head(title)">
     <meta charset="UTF-8">
+    <title th:text="${title}">Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://rsms.me/">
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     <link href="../public/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
 </head>
 
 <body>
 <header th:replace="~{fragments :: header}"></header>
+
 <div id="main-container">
-    <div id="navbar">
-        <ul class="main-menu">
-            <li class="button"><a href="/login">Login</a></li>
-        </ul>
-        <ul class="main-menu">
-            <div id="basket">
-                <a href="/cart"><img src="../public/images/basket.png" th:src="@{/images/basket.png}" width="40rem"/></a>
-                <p th:text="${#ctx.session.currentBasket.getTotalAmountOfCupcakes}"></p>
-            </div>
-        </ul>
-    </div>
 
     <div id="main-content">
         <h1>Velkommen til OLSKERS CUPCAKES</h1>
@@ -57,7 +49,7 @@
                     antal cupcakes
                 </option>
             </select>
-            <button type="submit" formaction="/addcupcake">Læg i kurv</button>
+            <button type="submit" formaction="/addcupcake/#main-content">Læg i kurv</button>
         </form>
 
     </div>

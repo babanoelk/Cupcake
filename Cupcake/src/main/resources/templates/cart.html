@@ -3,25 +3,16 @@
 <head>
     <title>Frontpage</title>
     <meta charset="UTF-8">
+    <title th:text="${title}">Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://rsms.me/">
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     <link href="../public/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
 </head>
 <body>
 <header th:replace="~{fragments :: header}"></header>
+
 <div id="main-container">
-    <div id="navbar">
-        <ul class="main-menu">
-            <li class="button"><a href="/login">Login</a></li>
-        </ul>
-        <ul class="main-menu">
-            <div id="basket">
-                <a href="/cart"><img src="../public/images/basket.png" th:src="@{/images/basket.png}" width="40rem"/></a>
-                <div>
-                    <p th:text="${#ctx.session.currentBasket.getTotalAmountOfCupcakes}"></p>
-                </div>
-            </div>
-        </ul>
-    </div>
         <div id="order">
             <h2>Din ordre</h2>
             <table>
@@ -39,7 +30,7 @@
                     <td th:text="${orderline.getPricePrOrderLine()+'kr'}">Total Pris</td>
                     <td>
                         <form class="taskform" method="post">
-                            <button type="submit" name="order_id" formaction="/delete" th:value="${rownr.index}">Delete</button>
+                            <button type="submit" name="order_id" formaction="/delete/#order" th:value="${rownr.index}">Delete</button>
                         </form>
                     </td>
                 </tr>
@@ -57,7 +48,6 @@
             </form>
         </div>
     </div>
-</div>
 <footer th:fragment="footer"/>
 </body>
 </html>

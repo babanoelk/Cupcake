@@ -1,27 +1,20 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
-<head>
-    <title>FrontpageWithAccount</title>
+<head th:fragment="head(title)">
     <meta charset="UTF-8">
+    <title th:text="${title}">Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://rsms.me/">
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     <link href="../public/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
 </head>
 
 <body>
 <header th:replace="~{fragments :: header}"></header>
+
 <div id="main-container">
-    <div id="navbar">
-        <ul class="main-menu">
-            <li class="button"><a href="/logud">Log ud</a></li>
-        </ul>
-        <ul class="main-menu">
-            <li class="button"><a href="/admin-kunde-side">Vis alle kunder</a></li>
-        </ul>
-        <ul class="main-menu">
-            <li class="button"><a href="/admin-ordre-side">Vis alle odrer</a></li>
-        </ul>
-    </div>
+
 
     <div id="main-content">
         <h1>OLSKERS CUPCAKES</h1>

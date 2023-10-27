@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head th:fragment="head(title)">
     <meta charset="UTF-8">
-    <title>admin-kunde-siden</title>
+    <title th:text="${title}">Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://rsms.me/">
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    <link href="../public/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
 </head>
 <body>
+
+<header th:replace="~{fragments :: header}"></header>
 
 <div>
     <div>
