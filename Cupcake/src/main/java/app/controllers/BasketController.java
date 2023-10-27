@@ -108,6 +108,9 @@ public class BasketController {
             int newBalance = account.getBalance()-totalPrice;
             AccountMapper.adjustBalance(newBalance, account, connectionPool);
 
+            //Eventuelt hent den nye balance fra databasen fremfor at gør det i backend.
+            account.setBalance(newBalance);
+
             List<Orderline> receipt = basket.getOrderlines();
 
             int paymentAmount = 0;
