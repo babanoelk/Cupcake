@@ -22,20 +22,20 @@
                     <th>Total Pris</th>
                 </tr>
                 <tr th:each="item : ${receipt}">
-                    <td th:text="${item.getTopping().getName()}">Top</td>
-                    <td th:text="${item.getBottom().getName()}">Bund</td>
-                    <td th:text="${item.getAmount()}">Antal</td>
-                    <td th:text="${item.getPricePrOrderLine()+'kr'}">Total Pris</td>
+                    <td th:text="${item.getTopping.getName}">Top</td>
+                    <td th:text="${item.getBottom.getName}">Bund</td>
+                    <td th:text="${item.getAmount}">Antal</td>
+                    <td th:text="${item.getPricePrOrderLine +'kr'}">Total Pris</td>
                 </tr>
             </table>
             <table>
                 <tr>
-                    <td th:text="${'Købt for i alt: '+ paymentamount + 'kr'}">total pris</td>
+                    <td th:text="${'Købt for i alt: '+ #ctx.paymentamount + 'kr'}">total pris</td>
                 </tr>
             </table>
 
-            <form method="post">
-                <button type="submit" formaction="/withdraw">Tilbage til forside</button>
+            <form method="get">
+                <button type="submit" formaction="/">Tilbage til forside</button>
             </form>
         </div>
     </div>

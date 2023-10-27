@@ -111,21 +111,22 @@ public class BasketController {
             //Eventuelt hent den nye balance fra databasen fremfor at gør det i backend.
             account.setBalance(newBalance);
 
-            List<Orderline> receipt = basket.getOrderlines();
-
             int paymentAmount = 0;
+            List<Orderline> receipt = basket.getOrderlines();
 
             for (Orderline orderline : receipt) {
                 paymentAmount += orderline.getPricePrOrderLine();
             }
 
-            basket.getOrderlines().clear();
+            //basket.getOrderlines().clear();  <-- når denne er aktiv kan man ikke se listen på siden.
+
 
             ctx.attribute("paymentamount", paymentAmount);
             ctx.attribute("receipt", receipt);
             ctx.sessionAttribute("currentAccount", account);
             ctx.sessionAttribute("currentBasket", basket);
             ctx.render("ordercompleted.html");
+
 
         } catch (DatabaseException e){
             ctx.attribute("message", e.getMessage());
