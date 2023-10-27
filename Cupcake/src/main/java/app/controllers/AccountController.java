@@ -11,11 +11,10 @@ import java.util.List;
 
 public class AccountController {
 
+
     public static void login(Context ctx, ConnectionPool connectionPool) {
         String name = ctx.formParam("email");
         String password = ctx.formParam("password");
-
-
         try {
 
             Account account = AccountMapper.login(name, password, connectionPool);
@@ -24,9 +23,34 @@ public class AccountController {
 
             if (account.isAdmin() == true) {
                 ctx.render("admin-side.html");
+
             }
             else {
-                ctx.render("indexloggedin.html");
+                CakeController.loadFrontPageData( ctx, connectionPool);
+            }
+        } catch (DatabaseException e) {
+            ctx.attribute("message", e.getMessage());
+            ctx.render("loginpage.html");
+        }
+    }
+
+
+
+    public static void loginFromBasket(Context ctx, ConnectionPool connectionPool) {
+        String name = ctx.formParam("email");
+        String password = ctx.formParam("password");
+        try {
+
+            Account account = AccountMapper.login(name, password, connectionPool);
+            ctx.sessionAttribute("currentAccount", account);
+            ctx.sessionAttribute("is_admin", account.isAdmin());
+
+            if (account.isAdmin() == true) {
+                ctx.render("admin-side.html");
+
+            }
+            else {
+                CakeController.loadPaymentPageData( ctx, connectionPool);
             }
         } catch (DatabaseException e) {
             ctx.attribute("message", e.getMessage());
