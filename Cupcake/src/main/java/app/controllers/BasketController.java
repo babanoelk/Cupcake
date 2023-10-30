@@ -117,15 +117,15 @@ public class BasketController {
             for (Orderline orderline : receipt) {
                 paymentAmount += orderline.getPricePrOrderLine();
             }
-
-            //basket.getOrderlines().clear();  <-- når denne er aktiv kan man ikke se listen på siden.
+            //basket.getOrderlines().clear(); // <-- når denne er aktiv kan man ikke se listen på siden.
 
 
             ctx.attribute("paymentamount", paymentAmount);
             ctx.attribute("receipt", receipt);
-            ctx.sessionAttribute("currentAccount", account);
-            ctx.sessionAttribute("currentBasket", basket);
+            ctx.sessionAttribute("currentAccount", account); // er denne nødvendig?
+            ctx.sessionAttribute("currentBasket", basket); // er denne nødvendig?
             ctx.render("ordercompleted.html");
+
 
 
         } catch (DatabaseException e){
