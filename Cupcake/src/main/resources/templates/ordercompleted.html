@@ -13,7 +13,7 @@
 <div id="main-container">
 
         <div id="order">
-            <h2>Betaling</h2>
+            <h2>Tak for din ordre</h2>
             <table>
                 <tr>
                     <th>Top</th>
@@ -21,11 +21,11 @@
                     <th>Antal</th>
                     <th>Total Pris</th>
                 </tr>
-                <tr th:each="item : ${receipt}">
-                    <td th:text="${item.getTopping.getName}">Top</td>
-                    <td th:text="${item.getBottom.getName}">Bund</td>
-                    <td th:text="${item.getAmount}">Antal</td>
-                    <td th:text="${item.getPricePrOrderLine +'kr'}">Total Pris</td>
+                <tr th:each="orderline : ${orderlines}">
+                    <td th:text="${orderline.getTopping().getName()}">Top</td>
+                    <td th:text="${orderline.getBottom().getName()}">Bund</td>
+                    <td th:text="${orderline.getAmount()}">Antal</td>
+                    <td th:text="${orderline.getPricePrOrderLine()+'kr'}">Total Pris</td>
                 </tr>
             </table>
             <table>

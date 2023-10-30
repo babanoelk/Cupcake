@@ -20,6 +20,7 @@
                 <button type="submit" formaction="/loggedfrontpage">Login</button>
                 <button type="submit" formaction="/account-created">Opret bruger</button>
             </form>
+            <p class="errormessage" th:text="${#ctx.message}"></p>
         </div>
     </div>
 </div>

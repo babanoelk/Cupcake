@@ -29,7 +29,6 @@ public class Main {
         app.post("/addcupcake", ctx -> BasketController.addOrderline(ctx, connectionPool));
         app.get("/login", ctx -> ctx.render("loginpage.html"));
         app.post("/loggedfrontpage", ctx -> AccountController.loginFrontPage(ctx, connectionPool));
-
         app.post("/loggedbasket", ctx -> AccountController.loginBasket(ctx, connectionPool));
         app.get("/createaccount", ctx -> ctx.render("create-account.html"));
         app.post("/account-created", ctx -> AccountController.createAccount(ctx, connectionPool));
