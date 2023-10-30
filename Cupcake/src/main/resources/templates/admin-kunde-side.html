@@ -61,23 +61,31 @@
                 <th>Password</th>
                 <th>Admin</th>
                 <th>Balance</th>
+                <th>Se alle kundens ordrer</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="account : ${accountList}">
+            <tr th:each="account, rownr : ${accountList}">
                 <td th:text="${account.getId()}"></td>
                 <td th:text="${account.getName()}"></td>
                 <td th:text="${account.getEmail()}"></td>
                 <td th:text="${account.getPassword()}"></td>
                 <td th:text="${account.isAdmin()}"></td>
                 <td th:text="${account.getBalance}"></td>
+                <td>
+                    <form class="taskform" method="post">
+                        <button type="submit" name="order_id" formaction="/kundens-ordrer-side" th:value="${account.getId()}">Se</button>
+                    </form>
+                </td>
             </tr>
             </tbody>
         </table>
     </div>
 </div>
+
 <footer>
     <p id="footer-text">Created by Team LAHY - All rights reserved</p>
 </footer>
+
 </body>
 </html>

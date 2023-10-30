@@ -39,6 +39,11 @@ public class Main {
         app.get("/admin-ordre-side", ctx -> AccountController.getAllOrders(ctx, connectionPool));
         app.post("/ordernow", ctx -> BasketController.orderNow(ctx, connectionPool));
         app.post("/withdraw", ctx -> BasketController.executeOrder(ctx, connectionPool));
+        //app.get("/kundens-ordrer-side", ctx -> AccountController.getOrdersByID(ctx,connectionPool));
+        app.post("/kundens-ordrer-side", ctx -> AccountController.getOrdersByID(ctx,connectionPool));
         app.get("/logout", ctx -> AccountController.logout(ctx));
+        app.post("/admin-kunde-side", ctx -> AccountController.getAllCustomers(ctx, connectionPool));
+        app.get("/kundens-ordrer-side", ctx -> AccountController.getOrdersByID(ctx, connectionPool));
+
     }
 }

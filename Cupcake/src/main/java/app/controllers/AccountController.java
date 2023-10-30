@@ -102,4 +102,18 @@ public class AccountController {
         ctx.req().getSession().invalidate();
         ctx.redirect("/");
     }
+
+    public static void getOrdersByID(Context ctx, ConnectionPool connectionPool) throws DatabaseException {
+
+        int accountID = Integer.parseInt(ctx.formParam("order_id"));
+
+        List<Order> ordersList;
+
+        ordersList = AccountMapper.getAllOrdersByID(accountID, connectionPool);
+
+        ctx.attribute("orderlines", ordersList);
+
+        ctx.render("kundens-ordrer-side.html");
+
+    }
 }
