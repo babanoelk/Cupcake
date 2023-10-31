@@ -17,6 +17,7 @@ header {
     width: 100%;
     padding-top: 25px;
     background-color: #D9D9D9;
+    border-radius: 3px;
 }
 
 #header-title, #header-slogan, #header-logo {
@@ -44,9 +45,11 @@ hr {
 }
 
 footer {
-    background-color: #D9D9D9;
+    background-color: #3A3B3C;
+    color: #fff;
     padding: 10px;
     text-align: center;
+    border-radius: 3px;
 }
 /* text styles */
 
@@ -62,10 +65,10 @@ footer {
 #navbar {
     width: 80%;
     margin: 10px auto 10px auto;
+    padding-bottom: 10px;
     font-size: 1.5rem;
     display: flex;
     justify-content: space-between;
-    border-radius: 3px;
 }
 
 /* main menu */
@@ -75,8 +78,7 @@ footer {
     display: flex;
     padding: 0px;
     margin: 0px;
-    gap: 2px;
-    border-radius: 3px;
+    gap: 10px;
 }
 
 #main-content {
@@ -84,10 +86,20 @@ footer {
     flex-direction: column;
     min-height: 300px;
     margin-top: 10px;
+    margin-bottom: 10px;
     padding: 20px;
-    background-color: #dfdfdf;
+    background-color: #d9d9d9;
     text-align: center;
     border-radius: 3px;
+}
+
+#session-email {
+    margin: 0;
+}
+
+a#header-link:visited, a#header-link {
+    text-decoration: none;
+    color: black;
 }
 
 /* flex styling af dropdowns */
@@ -108,6 +120,7 @@ footer {
     background-color: #3A3B3C;
     padding: 0.5rem;
     border-radius: 3px;
+    text-align: center;
 }
 
 .button a, .button p {
@@ -115,14 +128,17 @@ footer {
 
 }
 
-#basket{
+#basket {
     display: flex;
 }
 
-#basketsize{
+#basketsize {
+    min-height: 1.6rem;
+    min-width: 1.6rem;
+    text-align: center;
     background: black;
     color: white;
-    border-radius: 50px;
+    border-radius: 0.8rem;
 }
 
 table {
@@ -160,10 +176,11 @@ tr:nth-child(even) {
 
     #nav {
         flex-direction: column;
-        gap: 2px;
+        gap: 10px;
     }
 
     .main-menu {
         flex-direction: column;
+        justify-content: space-around;
     }
 }

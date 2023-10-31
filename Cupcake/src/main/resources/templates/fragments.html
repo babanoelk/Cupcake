@@ -10,11 +10,13 @@
 </head>
 <body>
     <header th:fragment="header">
+        <a id="header-link" href="/">
         <p id="header-title">Olsker Cupcakes</p>
         <p id="header-slogan">Mums Filibaba</p>
         <div id="header-logo">
             <img id="header-image" src="../public/images/cupcakelogo.png" th:src="@{/images/cupcakelogo.png}" alt="logo">
         </div>
+        </a>
         <hr/>
         <div id="navbar">
             <ul class="main-menu">
@@ -26,7 +28,7 @@
                     </div>
                     <div th:case="false" th:remove="tag">
                         <li class="button">
-                            <p th:text="${session.currentAccount.email}"></p>
+                            <p id="session-email" th:text="${session.currentAccount.email}"></p>
                         </li>
                         <li th:if="${not session.currentAccount.isAdmin}" class="button">
                             <a th:text="'Mine ordrer'" href="/min-side"></a>
@@ -48,7 +50,7 @@
             <ul class="main-menu">
                 <div id="basket">
                     <a href="/cart"><img src="../public/images/basket.png" th:src="@{/images/basket.png}" width="40rem"/></a>
-                    <p th:text="${#ctx.session.currentBasket.getTotalAmountOfCupcakes}"></p>
+                    <p id="basketsize" th:text="${#ctx.session.currentBasket.getTotalAmountOfCupcakes}"></p>
                 </div>
             </ul>
         </div>
