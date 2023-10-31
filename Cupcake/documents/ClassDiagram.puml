@@ -23,8 +23,9 @@ package entities {
         + String getName()
         + String getEmail()
         + String getPassword()
-        + boolean getIsAdmin()
+        + boolean IsAdmin()
         + int getBalance()
+        + void setBalance(int newBalance)
         + void addOrder()
         + List<Order> getAllOrders()
         + String toString()
@@ -38,26 +39,32 @@ package entities {
         - date orderDate
         - int orderSum
         - List<Orderline> orderlines
+        - int accountID
 
         + Order(int id, date orderDate, int orderSum, List<Orderline> orderlines)
+        + Order(int id, date orderDate, int orderSum, int accountID)
         + int getId()
         + date getOrderDate()
         + int getOrderSum()
-        + List<Orderline> getAllOrderlines
+        + List<Orderline> getOrderlines()
     }
 
     Order *-- Orderline
 
     class Orderline {
         - int id
+        - static int counter
         - int amount
         - Bottom bottom
         - Topping topping
 
+        + Orderline(int amount, Bottom bottom, Topping topping)
+        + Orderline(int id, int amount, Bottom bottom, Topping topping)
         + int getId()
         + int getAmount()
         + Bottom getBottom()
         + Topping getTopping()
+        + int getPricePrOrderLine()
     }
 
     Orderline *-- Topping
@@ -92,37 +99,90 @@ package entities {
     class Basket {
         - List<Orderline> orderlines
 
-        + void addOrderline()
+        + void addOrderline(Orderline orderline)
         + List<Orderline> getOrderlines()
-        + String toString()
+        + int getOrderTotalPrice()
+        + int getTotalAmountOfCupcakes()
     }
 }
 
 package controllers {
     class AccountController {
+    + static void loginFrontPage(Context ctx, ConnectionPool connectionPool)
+    + static void loginBasket(Context ctx, ConnectionPool connectionPool)
+    + static void createAccount(Context ctx, ConnectionPool connectionPool)
+    + static void getOrders(Context ctx, ConnectionPool connectionPool) throws DatabaseException
+    + static void getAllCustomers(Context ctx, ConnectionPool connectionPool) throws DatabaseException
+    + static void getAllOrders(Context ctx, ConnectionPool connectionPool) throws DatabaseException
+    + static void getOrdersByID(Context ctx, ConnectionPool connectionPool) throws DatabaseException
+    }
 
+    class BasketController{
+    + static void showAllOrderlines(Context ctx)
+    + static void deleteOrderline(Context ctx)
+    + static void addOrdeline(Context ctx, ConnectionPool connectionPool) throws DatabaseException
+    + static void addMoreCupcakes(Context ctx, ConnectionPool connectionPool)
+    + static orderNow(Context ctx, ConnectionPool connectionPool) throws DatabaseException
+    - static boolean isAccountLoggedIn(Context ctx)
+    + static void executeOrder(Context ctx, ConnectionPool connectionPool) throws DatabaseException, SQLException
+    + static boolean withdrawPayment(Context ctx, Account account, int amountToWithdraw)
+    }
+
+    class CakeController{
+    + static void loadFrontPageData(Context ctx, ConnectionPool connectionPool)
     }
 }
 
 package exceptions {
-    class DatabaseException extends Exception {
+    class DatabaseException extends Exception{
         + DatabaseException(String message)
     }
 }
 
 package persistence {
     class ConnectionPool {
-        'insert fields and methods
+    - static final String DEFAULT_USER = "postgres"
+    - static final String DEFAULT_PASSWORD = "postgres"
+    - static final String DEFAULT_URL =
+    - static final String DEFAULT_DB = "startcode"
+    + static ConnectionPool instance = null
+    + static HikariDataSource ds = null
+    - ConnectionPool()
+    + static ConnectionPool getInstance()
+    + static ConnectionPool getInstance(String user, String password, String url, String db)
+    + synchronized Connection getConnection() throws SQLException
+    + synchronized void close()
+    - static HikariDataSource createHikariConnectionPool(String user, String password, String url, String db)
     }
 
     class AccountMapper {
+    + static Account login(String email, String password, ConnectionPool connectionPool) throws DatabaseException
+    + static void createAccount(String name, String email, String password, ConnectionPool connectionPool) throws DatabaseException
+    + static List<Order> getAllOrdersByID(int accountID, ConnectionPool connectionPool) throws DatabaseException
+    + static List<Account> getAllCustomers(ConnectionPool connectionPool) throws DatabaseException
+    + static List<Order> getAllOrders(ConnectionPool connectionPool) throws DatabaseException
+    + static void adjustBalance(int (int newBalance, Account account, ConnectionPool connectionPool) throws DatabaseException
+    }
 
+    class BottomMapper{
+    + static List<Bottom> getAllBottoms(ConnectionPool connectionPool) throws DatabaseException
+    + static Bottom getBottomById(int bottomId, ConnectionPool connectionPool) throws DatabaseException
+    }
+
+    class ToppingMapper{
+    + static List<Topping> getAllTopping(ConnectionPool connectionPool) throws DatabaseException
+    + static Topping getToppingById(int toppingId, ConnectionPool connectionPool)
+    }
+
+    class OrderMapper{
+    + static Order addOrder(Account account, List<Orderline> orderlines, ConnectionPool connectionPool) throws DatabaseException
+    + static void addOrderline(Order order, List<Orderline> orderlines, ConnectionPool connectionPool) throws DatabaseException
     }
 }
 
 package config {
     class ThymeleafConfig {
-        'insert fields and methods
+    + static TemplateEngine templateEngine()
     }
 }
 
