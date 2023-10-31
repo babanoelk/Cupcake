@@ -10,7 +10,44 @@
 </head>
 <body>
 
-<header th:replace="~{fragments :: header}"></header>
+<header>
+    <p id="header-title">Olsker Cupcakes</p>
+    <p id="header-slogan">Mums Filibaba</p>
+    <div id="header-logo">
+        <img id="header-image" src="../public/images/cupcakelogo.png" th:src="@{/images/cupcakelogo.png}" alt="logo">
+    </div>
+    <hr/>
+    <div id="navbar">
+        <ul class="main-menu">
+            <div th:switch="${session.currentAccount}==null" th:remove="tag">
+                <div th:case="true" th:remove="tag">
+                    <li class="button">
+                        <a th:text="'Log ind'" href="/login"></a>
+                    </li>
+                </div>
+                <div th:case="false" th:remove="tag">
+                    <li class="button">
+                        <p th:text="${session.currentAccount.email}"></p>
+                    </li>
+                    <li th:if="${not session.currentAccount.isAdmin}" class="button">
+                        <a th:text="'Mine ordrer'" href="/min-side"></a>
+                    </li>
+                    <div th:if="${session.currentAccount.isAdmin}" th:remove="tag">
+                        <li class="button">
+                            <a th:text="'Vis alle kunder'" href="/admin-kunde-side"></a>
+                        </li>
+                        <li class="button">
+                            <a th:text="'Vis alle ordrer'" href="/admin-ordre-side"></a>
+                        </li>
+                    </div>
+                    <li class="button">
+                        <a th:text="'Log ud'" href="/logout"></a>
+                    </li>
+                </div>
+            </div>
+        </ul>
+    </div>
+</header>
 
 <div>
     <div>
@@ -24,22 +61,31 @@
                 <th>Password</th>
                 <th>Admin</th>
                 <th>Balance</th>
+                <th>Se alle kundens ordrer</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="account : ${accountList}">
+            <tr th:each="account, rownr : ${accountList}">
                 <td th:text="${account.getId()}"></td>
                 <td th:text="${account.getName()}"></td>
                 <td th:text="${account.getEmail()}"></td>
                 <td th:text="${account.getPassword()}"></td>
                 <td th:text="${account.isAdmin()}"></td>
                 <td th:text="${account.getBalance}"></td>
+                <td>
+                    <form class="taskform" method="post">
+                        <button type="submit" name="order_id" formaction="/kundens-ordrer-side" th:value="${account.getId()}">Se</button>
+                    </form>
+                </td>
             </tr>
             </tbody>
         </table>
     </div>
 </div>
 
+<footer>
+    <p id="footer-text">Created by Team LAHY - All rights reserved</p>
+</footer>
 
 </body>
 </html>

@@ -21,6 +21,7 @@
                     <th>Antal</th>
                     <th>Total Pris</th>
                 </tr>
+                <p th:text="${#ctx.message}"></p>
                 <tr th:each="orderline : ${orderlines}">
                     <td th:text="${orderline.getTopping().getName()}">Top</td>
                     <td th:text="${orderline.getBottom().getName()}">Bund</td>

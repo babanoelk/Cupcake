@@ -13,7 +13,30 @@ import java.util.List;
 public class AccountController {
 
 
-    public static void login(Context ctx, ConnectionPool connectionPool) {
+    public static void loginFrontPage(Context ctx, ConnectionPool connectionPool) {
+        String name = ctx.formParam("email");
+        String password = ctx.formParam("password");
+        try {
+
+            Account account = AccountMapper.login(name, password, connectionPool);
+            ctx.sessionAttribute("currentAccount", account);
+            ctx.sessionAttribute("is_admin", account.isAdmin());
+
+            if (account.isAdmin() == true) {
+                ctx.render("admin-side.html");
+
+            }
+            else {
+                BasketController.addMoreCupcakes(ctx, connectionPool);
+            }
+        } catch (DatabaseException e) {
+            ctx.attribute("message", e.getMessage());
+            ctx.render("loginpage.html");
+        }
+    }
+
+
+    public static void loginBasket(Context ctx, ConnectionPool connectionPool) {
         String name = ctx.formParam("email");
         String password = ctx.formParam("password");
         try {
@@ -101,5 +124,19 @@ public class AccountController {
     public static void logout(Context ctx){
         ctx.req().getSession().invalidate();
         ctx.redirect("/");
+    }
+
+    public static void getOrdersByID(Context ctx, ConnectionPool connectionPool) throws DatabaseException {
+
+        int accountID = Integer.parseInt(ctx.formParam("order_id"));
+
+        List<Order> ordersList;
+
+        ordersList = AccountMapper.getAllOrdersByID(accountID, connectionPool);
+
+        ctx.attribute("orderlines", ordersList);
+
+        ctx.render("kundens-ordrer-side.html");
+
     }
 }

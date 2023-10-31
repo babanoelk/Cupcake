@@ -17,10 +17,9 @@
             <form method="post">
                 <input type="text" name="email" placeholder="E-mail"/>
                 <input type="password" name="password" placeholder="Kodeord"/>
-                <button type="submit" formaction="/loggedfrontpage">Login</button>
+                <button type="submit" formaction="/loggedbasket">Login</button>
                 <button type="submit" formaction="/account-created">Opret bruger</button>
             </form>
-            <p class="errormessage" th:text="${#ctx.message}"></p>
         </div>
     </div>
 </div>

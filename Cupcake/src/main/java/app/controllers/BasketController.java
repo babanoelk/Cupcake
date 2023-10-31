@@ -12,7 +12,7 @@ public class BasketController {
 
     public static void showAllOrderlines(Context ctx) {
         Basket basket = ctx.sessionAttribute("currentBasket");
-        ctx.attribute("orderlines",basket.getOrderlines());
+        ctx.attribute("orderlines", basket.getOrderlines());
         ctx.render("cart.html");
     }
 
@@ -24,7 +24,7 @@ public class BasketController {
 
         basket.getOrderlines().remove(basketIndex);
         ctx.sessionAttribute("currentBasket", basket);
-        ctx.attribute("orderlines",basket.getOrderlines());
+        ctx.attribute("orderlines", basket.getOrderlines());
         ctx.render("cart.html");
     }
 
@@ -50,7 +50,7 @@ public class BasketController {
         ctx.attribute("toppingsList", toppings);
         ctx.attribute("bottomsList", bottoms);
 
-        ctx.attribute("orderlines",basket.getOrderlines());
+        ctx.attribute("orderlines", basket.getOrderlines());
 
         //Always remember to save session after manipulation
         ctx.sessionAttribute("currentBasket", basket);
@@ -62,7 +62,7 @@ public class BasketController {
         try {
             Basket basket = ctx.sessionAttribute("currentBasket");
 
-            ctx.attribute("orderlines",basket.getOrderlines());
+            ctx.attribute("orderlines", basket.getOrderlines());
 
             List<Topping> toppings = ToppingMapper.getAllToppings(connectionPool);
             List<Bottom> bottoms = BottomMapper.getAllBottoms(connectionPool);
@@ -80,12 +80,12 @@ public class BasketController {
     }
 
     public static void orderNow(Context ctx, ConnectionPool connectionPool) throws DatabaseException, SQLException {
-        if(isAccountLoggedIn(ctx)){
+        if (isAccountLoggedIn(ctx)) {
             Basket basket = ctx.sessionAttribute("currentBasket");
             ctx.attribute("orderlines", basket.getOrderlines());
             ctx.render("payment.html");
-        }else{
-            ctx.render("loginpage.html");
+        } else {
+            ctx.render("basketlogin.html");
         }
     }
 
@@ -95,54 +95,58 @@ public class BasketController {
     }
 
     public static void executeOrder(Context ctx, ConnectionPool connectionPool) throws DatabaseException, SQLException {
-        try{
+
+        try {
             Account account = ctx.sessionAttribute("currentAccount");
             Basket basket = ctx.sessionAttribute("currentBasket");
 
             int totalPrice = basket.getOrderTotalPrice();
-            withdrawPayment(ctx, account, totalPrice);
-
-            Order order = OrderMapper.addOrder(account, basket.getOrderlines(), connectionPool);
-            OrderMapper.addOrderline(order, basket.getOrderlines(), connectionPool);
-
-            int newBalance = account.getBalance()-totalPrice;
-            AccountMapper.adjustBalance(newBalance, account, connectionPool);
-
-            //Eventuelt hent den nye balance fra databasen fremfor at gør det i backend.
-            account.setBalance(newBalance);
 
             int paymentAmount = 0;
-            List<Orderline> receipt = basket.getOrderlines();
+            List<Orderline> orderlines = basket.getOrderlines();
 
-            for (Orderline orderline : receipt) {
+            for (Orderline orderline : orderlines) {
                 paymentAmount += orderline.getPricePrOrderLine();
             }
 
-            //basket.getOrderlines().clear();  <-- når denne er aktiv kan man ikke se listen på siden.
-
-
             ctx.attribute("paymentamount", paymentAmount);
-            ctx.attribute("receipt", receipt);
-            ctx.sessionAttribute("currentAccount", account);
-            ctx.sessionAttribute("currentBasket", basket);
-            ctx.render("ordercompleted.html");
+            ctx.attribute("orderlines", orderlines);
 
 
-        } catch (DatabaseException e){
+            if (withdrawPayment(ctx, account, totalPrice)) {
+                Order order = OrderMapper.addOrder(account, basket.getOrderlines(), connectionPool);
+                OrderMapper.addOrderline(order, basket.getOrderlines(), connectionPool);
+
+                int newBalance = account.getBalance() - totalPrice;
+                AccountMapper.adjustBalance(newBalance, account, connectionPool);
+
+                //Eventuelt hent den nye balance fra databasen fremfor at gør det i backend.
+                account.setBalance(newBalance);
+                //basket.getOrderlines().clear(); // <-- når denne er aktiv kan man ikke se listen på siden.
+
+                ctx.render("ordercompleted.html");
+            } else {
+                ctx.attribute("message", "Beløbet kunne ikke trækkes. Der er ikke dækning på din konto.");
+                ctx.render("payment.html");
+            }
+        } catch (DatabaseException e) {
             ctx.attribute("message", e.getMessage());
-            ctx.render("index.html");
+            ctx.render("payment.html");
         }
     }
 
-    public static void withdrawPayment(Context ctx, Account account, int amountTowithdraw){
+    public static boolean withdrawPayment(Context ctx, Account account, int amountToWithdraw) {
         int currentBalance = account.getBalance();
-        if (currentBalance >= amountTowithdraw){
-            int newBalance = currentBalance - amountTowithdraw;
+
+        if (currentBalance >= amountToWithdraw) {
+            int newBalance = currentBalance - amountToWithdraw;
             account.setBalance(newBalance);
             ctx.sessionAttribute("currentAccount", account);
-        } else{
+            return true;  // Trækning lykkedes
+        } else {
             ctx.attribute("message", "Beløbet kunne ikke trækkes fra din konto");
-            ctx.render("index.html");
+            ctx.render("payment.html");
+            return false; // Trækning mislykkedes
         }
     }
 }
