@@ -28,9 +28,6 @@ public class Account {
         this.balance = balance;
     }
 
-    public static void put(String email, Account account) {
-    }
-
     public int getId() {
         return id;
     }
