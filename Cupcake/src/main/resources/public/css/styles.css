@@ -20,7 +20,7 @@ header {
 }
 
 #header-title, #header-slogan, #header-logo {
-    width: 90%;
+    width: 80%;
     margin: auto;
     margin-bottom: 10px;
     text-align: center;
@@ -36,7 +36,7 @@ header {
 }
 
 #header-image {
-    max-width: 100%;
+    max-width: 80%;
 }
 
 hr {
@@ -60,8 +60,8 @@ footer {
 /* Nav bar */
 
 #navbar {
-    background-color: #dfdfdf;
-    margin-top: 10px;
+    width: 80%;
+    margin: 10px auto 10px auto;
     font-size: 1.5rem;
     display: flex;
     justify-content: space-between;
@@ -75,7 +75,7 @@ footer {
     display: flex;
     padding: 0px;
     margin: 0px;
-    gap: 1px;
+    gap: 2px;
     border-radius: 3px;
 }
 
@@ -105,9 +105,14 @@ footer {
 }
 
 .button {
-    background-color: yellow;
-    padding: 1rem;
+    background-color: #3A3B3C;
+    padding: 0.5rem;
     border-radius: 3px;
+}
+
+.button a, .button p {
+    color: white;
+
 }
 
 #basket{
@@ -155,7 +160,7 @@ tr:nth-child(even) {
 
     #nav {
         flex-direction: column;
-        gap: 1px;
+        gap: 2px;
     }
 
     .main-menu {
