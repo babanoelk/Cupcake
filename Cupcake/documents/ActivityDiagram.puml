@@ -1,0 +1,24 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+|Kunde|
+start
+:Bestiller kager;
+|System|
+:Er der penge på konto;
+if ()
+    :Nej, ingen penge;
+    :Kontakt kundeservice;
+    stop
+else
+    :Ja, der er penge;
+    :Bestilling registreres;
+|Butik|
+:Bestilling modtaget;
+|Kunde|
+:Bestilling klar til afhentning;
+|Butik|
+:Udleveret;
+stop
+
+@enduml
