@@ -2,18 +2,21 @@
 
 ## Projektdeltagere
 
-**Ahmad**
-Mail: cph-aa540@cphbusiness.dk
-Github: @Babanoelk
-**Hanni**
-Mail: cph-ha186@cphbusiness.dk
-Github: @HanniSalman
-**Lasse**
-Mail: cph-lh225@cphbusiness.dk
-Github: @Lassekh
-**Youssef**
-Mail: cph-yb48@cphbusiness.dk
-Github: @Badranyoussef
+**Ahmad**<br>
+Mail: cph-aa540@cphbusiness.dk <br>
+Github: @Babanoelk<br>
+
+**Hanni**<br>
+Mail: cph-ha186@cphbusiness.dk<br>
+Github: @HanniSalman<br>
+
+**Lasse**<br>
+Mail: cph-lh225@cphbusiness.dk<br>
+Github: @Lassekh<br>
+
+**Youssef**<br>
+Mail: cph-yb48@cphbusiness.dk<br>
+Github: @Badranyoussef<br>
 
 ## Projektbeskrivelse
 
