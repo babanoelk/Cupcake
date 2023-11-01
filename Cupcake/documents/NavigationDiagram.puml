@@ -1,0 +1,44 @@
+@startuml
+'https://plantuml.com/state-diagram
+scale 400 width
+'[*] --> NotShooting
+
+[*] --> index
+index --> loginpage : log ind
+index --> cart : gå til kurv
+index --> index : læg i kurv
+
+cart --> index : bestil flere
+cart --> loginpage : køb nu [not logged in]
+
+
+state loggedin {
+loginpage --> payment : log på [basket size > 0]
+loginpage --> index : log på [kunde]
+loginpage --> admin : log på [admin]
+
+index --> mineordrer : Vis mine ordrer [kunde]
+
+cart --> payment : køb nu [logged in]
+
+admin --> allekunder : Vis alle kunder
+admin --> alleordrer : Vis alle ordrer
+
+
+}
+
+loggedin --> [*] : log ud
+
+
+
+
+
+
+
+
+
+
+
+
+!pragma layout smetana
+@enduml
