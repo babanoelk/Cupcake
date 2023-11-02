@@ -24,4 +24,4 @@ Github: @Badranyoussef<br>
 
 ## Videopræsentation
 
-[Se videopræsentation af projektet](https://www.youtube.com/watch?v=7XdDfEm0iJk)https://www.youtube.com/watch?v=7XdDfEm0iJk)
+[Se videopræsentation af projektet](https://www.youtube.com/watch?v=7XdDfEm0iJk)
