@@ -63,9 +63,8 @@ create table orderline(
 	topping_id serial not null,
 	bottom_id serial not null,
 	order_id serial not null,
-	account_id integer not null,
+	amount integer not null,
 	constraint fk_topping_id foreign key (topping_id) references topping (topping_id),
 	constraint fk_bottom_id foreign key (bottom_id) references bottom (bottom_id),
 	constraint fk_order_id foreign key (order_id) references customer_order (order_id),
-    constraint fk_account_id FOREIGN KEY (account_id) REFERENCES account(account_id);
 );
