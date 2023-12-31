@@ -15,7 +15,6 @@ public class Basket {
     private List<Orderline> orderlines = new ArrayList<>();
 
     public void addOrderline(Orderline orderline) {
-
         orderlines.add(orderline);
     }
 
@@ -23,7 +22,7 @@ public class Basket {
         return orderlines;
     }
 
-    //This method is only used int the cart.html. That's why the methos is showen as not used
+    //This method is only used int the cart.html. That's why the method is shown as not used
     public int getOrderTotalPrice() {
         int totalPrice = 0;
 

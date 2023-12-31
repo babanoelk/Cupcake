@@ -10,7 +10,7 @@ import io.javalin.rendering.template.JavalinThymeleaf;
 
 public class Main {
     private static final String USER = "postgres";
-    private static final String PASSWORD = "postgres";
+    private static final String PASSWORD = "Ys240514";
     private static final String URL = "jdbc:postgresql://localhost:5432/%s?currentSchema=public";
     private static final String DB = "cupcake";
 
@@ -25,14 +25,16 @@ public class Main {
 
 
         // Routing
+
         app.get("/", ctx -> CakeController.loadFrontPageData(ctx, connectionPool));
         app.post("/addcupcake", ctx -> BasketController.addOrderline(ctx, connectionPool));
+        app.get("/cart", ctx -> BasketController.showAllOrderlines(ctx));
+
         app.get("/login", ctx -> ctx.render("loginpage.html"));
         app.post("/loggedfrontpage", ctx -> AccountController.loginFrontPage(ctx, connectionPool));
         app.post("/loggedbasket", ctx -> AccountController.loginBasket(ctx, connectionPool));
         app.get("/createaccount", ctx -> ctx.render("create-account.html"));
         app.post("/account-created", ctx -> AccountController.createAccount(ctx, connectionPool));
-        app.get("/cart", ctx -> BasketController.showAllOrderlines(ctx));
         app.post("/delete", ctx -> BasketController.deleteOrderline(ctx));
         app.post("/addmore", ctx -> BasketController.addMoreCupcakes(ctx, connectionPool));
         app.get("/min-side", ctx -> AccountController.getOrders(ctx, connectionPool));
@@ -40,7 +42,6 @@ public class Main {
         app.get("/admin-ordre-side", ctx -> AccountController.getAllOrders(ctx, connectionPool));
         app.post("/ordernow", ctx -> BasketController.orderNow(ctx, connectionPool));
         app.post("/withdraw", ctx -> BasketController.executeOrder(ctx, connectionPool));
-        //app.get("/kundens-ordrer-side", ctx -> AccountController.getOrdersByID(ctx,connectionPool));
         app.post("/kundens-ordrer-side", ctx -> AccountController.getOrdersByID(ctx,connectionPool));
         app.get("/logout", ctx -> AccountController.logout(ctx));
         app.post("/admin-kunde-side", ctx -> AccountController.getAllCustomers(ctx, connectionPool));
